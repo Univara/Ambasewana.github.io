@@ -1,4 +1,3 @@
-
 import { useRecoilState } from 'recoil';
 import { CartState } from './Shop'; // Import Recoil atom for cart state
 
@@ -12,15 +11,25 @@ function Cart() {
   };
 
   const incrementQuantity = (itemId) => {
-    const updatedCart = { ...cart };
-    updatedCart[itemId].quantity += 1;
+    const updatedCart = {
+      ...cart,
+      [itemId]: {
+        ...cart[itemId],
+        quantity: cart[itemId].quantity + 1,
+      },
+    };
     setCart(updatedCart);
   };
 
   const decrementQuantity = (itemId) => {
-    const updatedCart = { ...cart };
-    if (updatedCart[itemId].quantity > 1) {
-      updatedCart[itemId].quantity -= 1;
+    const updatedCart = {
+      ...cart,
+      [itemId]: {
+        ...cart[itemId],
+        quantity: cart[itemId].quantity - 1,
+      },
+    };
+    if (updatedCart[itemId].quantity > 0) {
       setCart(updatedCart);
     }
   };
