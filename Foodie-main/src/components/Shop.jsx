@@ -6,6 +6,7 @@ import './Styles/shop.css';
 import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
 import Transition from '../components/Transition';
 import { useEffect, useState } from 'react';
+import Notification from '../components/notification';
 
 export const CartState = atom({
   key: 'CartState',
@@ -45,6 +46,10 @@ function Shop() {
   const [items, setItems] = React.useState([]);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [showTransition, setShowTransition] = useState(true);
+  const [notification, setNotification] = useState({
+    message: '',
+    visible: false,
+  });
 
   useEffect(() => {
     setItems(food);
@@ -110,7 +115,13 @@ function Shop() {
           onClick={() => {
             addToCart(item, cart, setCart);
             toggleClicked(item);
-            toast.success(`${item.Name} added to cart!`);
+            setNotification({
+              message: `${item.Name} has been added to your cart!`,
+              visible: true,
+            });
+            setTimeout(() => {
+              setNotification({ ...notification, visible: false });
+            }, 1000);
           }}
         >
           {item.clicked ? (
@@ -130,6 +141,10 @@ function Shop() {
   return (
     <div className="shop-container">
       {showTransition && <Transition />}
+      <Notification
+        message={notification.message}
+        visible={notification.visible}
+      />
       <h1>Explore Our Items</h1>
       <div className="search-container">
         <input
