@@ -1,42 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { atom, useRecoilState, selector } from "recoil";
-import { BsFillCartPlusFill, BsCartCheckFill } from "react-icons/bs";
-import Transition from "../components/Transition";
-import Notification from "../components/Notification";
-import "./Styles/shop.css";
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { atom, useRecoilState, selector } from 'recoil';
+import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
+import Transition from '../components/Transition';
+import Notification from '../components/notification';
+import './Styles/shop.css';
 
 // Define Recoil state atoms and selectors
 export const CartState = atom({
-  key: "CartState",
+  key: 'CartState',
   default: {},
 });
 
 export const cartStateWithRemove = selector({
-  key: "cartStateWithRemove",
+  key: 'cartStateWithRemove',
   get: ({ get }) => get(CartState),
   set: ({ set }, updatedCart) => {
     set(CartState, updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
   },
 });
 
-// Define function to handle adding/removing items to/from cart
+// Function to handle adding items to cart
 export function addToCart(item, cart, setCart) {
-  if (cart[item.id]) {
-    const updatedCart = { ...cart };
-    const itemCount = updatedCart[item.id];
+  const updatedCart = { ...cart };
 
-    if (itemCount > 1) {
-      updatedCart[item.id] = itemCount - 1;
-    } else {
-      delete updatedCart[item.id];
-    }
-
-    setCart(updatedCart);
+  if (updatedCart[item.id]) {
+    updatedCart[item.id].quantity += 1; // Increment the quantity
   } else {
-    const updatedCart = { ...cart, [item.id]: 1 };
-    setCart(updatedCart);
+    updatedCart[item.id] = { ...item, quantity: 1 }; // Add new item with quantity 1
   }
+
+  setCart(updatedCart);
 }
 
 function Shop() {
@@ -44,10 +39,10 @@ function Shop() {
   const [visible, setVisible] = useState(10); // Controls the number of visible items
   const [searchParams] = useSearchParams();
   const [items, setItems] = useState([]); // State for the items
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [showTransition, setShowTransition] = useState(true);
   const [notification, setNotification] = useState({
-    message: "",
+    message: '',
     visible: false,
   });
 
@@ -56,15 +51,15 @@ function Shop() {
     const fetchFoodData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/products/chinese"
+          'http://localhost:3000/api/products/chinese'
         );
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error('Network response was not ok');
         }
         const data = await response.json();
         setItems(data); // Set the items state with the fetched data
       } catch (error) {
-        console.error("Fetch error:", error);
+        console.error('Fetch error:', error);
       }
     };
 
@@ -73,18 +68,16 @@ function Shop() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
+    // Disable transition after 3 seconds
     const timeout = setTimeout(() => {
       setShowTransition(false);
     }, 3000);
-    return () => {
-      clearTimeout(timeout);
-    };
+
+    return () => clearTimeout(timeout);
   }, []);
 
   // Filter and search logic
-  const typeFilter = searchParams.get("category");
+  const typeFilter = searchParams.get('category');
   const displayedItems = items.filter((item) => {
     const matchesType = typeFilter ? item.category === typeFilter : true;
     const matchesSearch = item.name
@@ -93,11 +86,9 @@ function Shop() {
     return matchesType && matchesSearch;
   });
 
-  console.log("typeFilter:", typeFilter);
-
   // Show more items handler
   const showMoreItems = () => {
-    setVisible((prevState) => prevState + 4);
+    setVisible((prevVisible) => prevVisible + 4);
   };
 
   // Toggle item clicked state
@@ -112,13 +103,6 @@ function Shop() {
   };
 
   const remainingItems = displayedItems.length - visible;
-  const showMoreButton = remainingItems > 0 && (
-    <div className="shop-button">
-      <button className="button" onClick={showMoreItems}>
-        Explore More
-      </button>
-    </div>
-  );
 
   const ItemsElements = displayedItems.slice(0, visible).map((item) => (
     <div className="item-card" key={item.id}>
@@ -129,7 +113,7 @@ function Shop() {
       <div className="item-info">
         <h2 className="name">{item.name}</h2>
         <p className="price">
-          Rs.{item.price}{" "}
+          Rs.{item.price}{' '}
           <span className="original-price">{item.originalPrice}</span>
         </p>
         <button
@@ -182,41 +166,33 @@ function Shop() {
       </div>
 
       <nav className="filter-nav">
-        <Link className="item-type" to=".">
+        <Link className={`item-type ${!typeFilter ? 'selected' : ''}`} to=".">
           All
         </Link>
 
         <Link
-          className={`item-type pizza ${
-            typeFilter === "Pizza" ? "selected" : ""
-          }`}
+          className={`item-type ${typeFilter === 'Pizza' ? 'selected' : ''}`}
           to="?category=Pizza"
         >
           Pizza
         </Link>
 
         <Link
-          className={`item-type pizza ${
-            typeFilter === "Drink" ? "selected" : ""
-          }`}
+          className={`item-type ${typeFilter === 'Drink' ? 'selected' : ''}`}
           to="?category=Drink"
         >
           Drink
         </Link>
 
         <Link
-          className={`item-type burger ${
-            typeFilter === "Burger" ? "selected" : ""
-          }`}
+          className={`item-type ${typeFilter === 'Burger' ? 'selected' : ''}`}
           to="?category=Burger"
         >
           Burger
         </Link>
 
         <Link
-          className={`item-type sandwich ${
-            typeFilter === "Sandwich" ? "selected" : ""
-          }`}
+          className={`item-type ${typeFilter === 'Sandwich' ? 'selected' : ''}`}
           to="?category=Sandwich"
         >
           Sandwich
@@ -224,7 +200,13 @@ function Shop() {
       </nav>
 
       <div className="item-container">{ItemsElements}</div>
-      {showMoreButton}
+      {remainingItems > 0 && (
+        <div className="shop-button">
+          <button className="button" onClick={showMoreItems}>
+            Explore More
+          </button>
+        </div>
+      )}
     </div>
   );
 }
