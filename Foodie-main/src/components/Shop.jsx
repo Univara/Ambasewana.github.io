@@ -6,6 +6,7 @@ import './Styles/shop.css';
 import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
 import Transition from '../components/Transition';
 import { useEffect, useState } from 'react';
+import Notification from '../components/notification';
 
 export const CartState = atom({
   key: 'CartState',
@@ -41,25 +42,19 @@ export function addToCart(item, cart, setCart) {
 function Shop() {
   const [cart, setCart] = useRecoilState(CartState);
   const [visible, setVisible] = React.useState(8);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [items, setItems] = React.useState([]);
-  // console.log(Object.keys(cart).length);
-  var cartLength = 0;
-  for (var key in cart) {
-    cartLength++;
-  }
-  console.log(cartLength);
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [showTransition, setShowTransition] = useState(true);
+  const [notification, setNotification] = useState({
+    message: '',
+    visible: false,
+  });
 
-  if (!cart) {
-    console.log('Cart is undefined');
-  }
-
-  React.useEffect(() => {
+  useEffect(() => {
     setItems(food);
     window.scrollTo(0, 0);
   }, []);
-
-  const [showTransition, setShowTransition] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -73,9 +68,13 @@ function Shop() {
   }, []);
 
   const typeFilter = searchParams.get('catagory');
-  const displayedItems = typeFilter
-    ? items.filter((items) => items.catagory === typeFilter)
-    : items;
+  const displayedItems = items.filter((item) => {
+    const matchesType = typeFilter ? item.catagory === typeFilter : true;
+    const matchesSearch = item.Name.toLowerCase().includes(
+      searchQuery.toLowerCase()
+    );
+    return matchesType && matchesSearch;
+  });
 
   const showMoreItems = () => {
     setVisible((prevState) => prevState + 4);
@@ -116,6 +115,13 @@ function Shop() {
           onClick={() => {
             addToCart(item, cart, setCart);
             toggleClicked(item);
+            setNotification({
+              message: `${item.Name} has been added to your cart!`,
+              visible: true,
+            });
+            setTimeout(() => {
+              setNotification({ ...notification, visible: false });
+            }, 1000);
           }}
         >
           {item.clicked ? (
@@ -135,7 +141,23 @@ function Shop() {
   return (
     <div className="shop-container">
       {showTransition && <Transition />}
+      <Notification
+        message={notification.message}
+        visible={notification.visible}
+      />
       <h1>Explore Our Items</h1>
+      <div className="search-container">
+        <div className="input-wrapper">
+          <i className="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="Search items..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-bar"
+          />
+        </div>
+      </div>
 
       <nav className="filter-nav">
         <Link className="item-type" to=".">
