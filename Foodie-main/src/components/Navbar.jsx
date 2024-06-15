@@ -25,7 +25,7 @@ const Navbar = () => {
   return (
     <header>
       <div className="nav-container container">
-        <h2 className="logo">Foodie.</h2>
+        <h4 className="logo">Ambasewana</h4>
         <div className="nav-container">
           <nav className={`site-nav ${isOpen ? 'site-nav--open' : ''}`}>
             <ul>
