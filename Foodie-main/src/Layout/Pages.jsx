@@ -5,39 +5,39 @@ import Features from '../components/Features';
 import Deals from '../components/Deals';
 import Testimonials from '../components/Testimonials';
 import Delivery from '../components/Delivery';
-import BlogCards from '../components/BlogCards';
+
 import { MdBoy, MdConstruction } from 'react-icons/md';
 import { LuConstruction } from 'react-icons/lu';
 import Transition from '../components/Transition';
 
 function Pages() {
-    const [showTransition, setShowTransition] = useState(true);
+  const [showTransition, setShowTransition] = useState(true);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
+  useEffect(() => {
+    window.scrollTo(0, 0);
 
-        // Hide the Transition component after 3 seconds
-        const timeout = setTimeout(() => {
-        setShowTransition(false);
-        }, 3000);
+    // Hide the Transition component after 3 seconds
+    const timeout = setTimeout(() => {
+      setShowTransition(false);
+    }, 3000);
 
-        // Cleanup the timeout when the component unmounts
-        return () => {
-        clearTimeout(timeout);
-        };
-    }, []);
+    // Cleanup the timeout when the component unmounts
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   return (
-      <div>
-            {showTransition && <Transition />}
-        <Hero />
-        <Promo />
-        <Features />
-        <Delivery />
-        <Deals />
-        <BlogCards />
-        <Testimonials />
-        </div>
+    <div>
+      {showTransition && <Transition />}
+      <Hero />
+      <Promo />
+      <Features />
+      <Delivery />
+      <Deals />
+
+      <Testimonials />
+    </div>
   );
 }
 

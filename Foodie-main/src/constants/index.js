@@ -40,7 +40,7 @@ export const navLinks = [
   },
   {
     id: 'features',
-    title: 'Shop',
+    title: 'Menu',
     link: './shop',
   },
 ];

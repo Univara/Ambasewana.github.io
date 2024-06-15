@@ -43,23 +43,13 @@ function Shop() {
   const [visible, setVisible] = React.useState(8);
   const [searchParams, setSearchParams] = useSearchParams();
   const [items, setItems] = React.useState([]);
-  // console.log(Object.keys(cart).length);
-  var cartLength = 0;
-  for (var key in cart) {
-    cartLength++;
-  }
-  console.log(cartLength);
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [showTransition, setShowTransition] = useState(true);
 
-  if (!cart) {
-    console.log('Cart is undefined');
-  }
-
-  React.useEffect(() => {
+  useEffect(() => {
     setItems(food);
     window.scrollTo(0, 0);
   }, []);
-
-  const [showTransition, setShowTransition] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -73,9 +63,13 @@ function Shop() {
   }, []);
 
   const typeFilter = searchParams.get('catagory');
-  const displayedItems = typeFilter
-    ? items.filter((items) => items.catagory === typeFilter)
-    : items;
+  const displayedItems = items.filter((item) => {
+    const matchesType = typeFilter ? item.catagory === typeFilter : true;
+    const matchesSearch = item.Name.toLowerCase().includes(
+      searchQuery.toLowerCase()
+    );
+    return matchesType && matchesSearch;
+  });
 
   const showMoreItems = () => {
     setVisible((prevState) => prevState + 4);
@@ -116,6 +110,7 @@ function Shop() {
           onClick={() => {
             addToCart(item, cart, setCart);
             toggleClicked(item);
+            toast.success(`${item.Name} added to cart!`);
           }}
         >
           {item.clicked ? (
@@ -136,7 +131,15 @@ function Shop() {
     <div className="shop-container">
       {showTransition && <Transition />}
       <h1>Explore Our Items</h1>
-
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search items..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-bar"
+        />
+      </div>
       <nav className="filter-nav">
         <Link className="item-type" to=".">
           All

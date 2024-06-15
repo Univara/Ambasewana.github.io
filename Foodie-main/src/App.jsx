@@ -7,8 +7,8 @@ import { RecoilRoot } from 'recoil';
 import Test from './components/test';
 import Login from './components/Login';
 import { AuthProvider } from './config/Context';
-import Blog from './components/Blog';
-import Blog1 from './components/Blog1';
+import 'react-toastify/dist/ReactToastify.css';
+
 import RouteTracker from './RouterTracker';
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
     <>
       <RecoilRoot>
         <AuthProvider>
+          
           <BrowserRouter>
             <Routes>
               <Route
@@ -30,8 +31,6 @@ function App() {
                 <Route path="shop" element={<Shop />} />
                 <Route path="signup" element={<Test />} />
                 <Route path="login" element={<Login />} />
-                <Route path="blogs" element={<Blog />} />
-                <Route path="blogs/1" element={<Blog1 />} />
               </Route>
             </Routes>
             <RouteTracker />
