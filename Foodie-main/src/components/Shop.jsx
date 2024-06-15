@@ -1,26 +1,26 @@
-import React from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { atom, useRecoilState, selector } from 'recoil';
-import { food } from '../constants';
-import './Styles/shop.css';
-import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
-import Transition from '../components/Transition';
-import { useEffect, useState } from 'react';
-import Notification from '../components/notification';
+import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { atom, useRecoilState, selector } from "recoil";
+import { BsFillCartPlusFill, BsCartCheckFill } from "react-icons/bs";
+import Transition from "../components/Transition";
+import Notification from "../components/Notification";
+import "./Styles/shop.css";
 
+// Define Recoil state atoms and selectors
 export const CartState = atom({
-  key: 'CartState',
+  key: "CartState",
   default: {},
 });
 
 export const cartStateWithRemove = selector({
-  key: 'cartStateWithRemove',
+  key: "cartStateWithRemove",
   get: ({ get }) => get(CartState),
   set: ({ set }, updatedCart) => {
     set(CartState, updatedCart);
   },
 });
 
+// Define function to handle adding/removing items to/from cart
 export function addToCart(item, cart, setCart) {
   if (cart[item.id]) {
     const updatedCart = { ...cart };
@@ -41,18 +41,34 @@ export function addToCart(item, cart, setCart) {
 
 function Shop() {
   const [cart, setCart] = useRecoilState(CartState);
-  const [visible, setVisible] = React.useState(8);
+  const [visible, setVisible] = useState(10); // Controls the number of visible items
   const [searchParams] = useSearchParams();
-  const [items, setItems] = React.useState([]);
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [items, setItems] = useState([]); // State for the items
+  const [searchQuery, setSearchQuery] = useState("");
   const [showTransition, setShowTransition] = useState(true);
   const [notification, setNotification] = useState({
-    message: '',
+    message: "",
     visible: false,
   });
 
   useEffect(() => {
-    setItems(food);
+    // Fetch data when the component mounts
+    const fetchFoodData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/products/chinese"
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setItems(data); // Set the items state with the fetched data
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchFoodData();
     window.scrollTo(0, 0);
   }, []);
 
@@ -67,19 +83,24 @@ function Shop() {
     };
   }, []);
 
-  const typeFilter = searchParams.get('catagory');
+  // Filter and search logic
+  const typeFilter = searchParams.get("category");
   const displayedItems = items.filter((item) => {
-    const matchesType = typeFilter ? item.catagory === typeFilter : true;
-    const matchesSearch = item.Name.toLowerCase().includes(
-      searchQuery.toLowerCase()
-    );
+    const matchesType = typeFilter ? item.category === typeFilter : true;
+    const matchesSearch = item.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     return matchesType && matchesSearch;
   });
 
+  console.log("typeFilter:", typeFilter);
+
+  // Show more items handler
   const showMoreItems = () => {
     setVisible((prevState) => prevState + 4);
   };
 
+  // Toggle item clicked state
   const toggleClicked = (item) => {
     setItems((prevItems) =>
       prevItems.map((prevItem) =>
@@ -103,12 +124,13 @@ function Shop() {
     <div className="item-card" key={item.id}>
       <div className="item-discount angle">-{item.discount}%</div>
       <div className="item-pic">
-        <img className="item-pic" src={item.pic} alt="burger" />
+        <img className="item-pic" src={item.image} alt={item.name} />
       </div>
       <div className="item-info">
-        <h2 className="name">{item.Name}</h2>
+        <h2 className="name">{item.name}</h2>
         <p className="price">
-          {item.Price}$ <span className="original-price">{item.O_price}$</span>
+          Rs.{item.price}{" "}
+          <span className="original-price">{item.originalPrice}</span>
         </p>
         <button
           className="cart-button"
@@ -116,7 +138,7 @@ function Shop() {
             addToCart(item, cart, setCart);
             toggleClicked(item);
             setNotification({
-              message: `${item.Name} has been added to your cart!`,
+              message: `${item.name} has been added to your cart!`,
               visible: true,
             });
             setTimeout(() => {
@@ -166,36 +188,36 @@ function Shop() {
 
         <Link
           className={`item-type pizza ${
-            typeFilter === 'Pizza' ? 'selected' : ''
+            typeFilter === "Pizza" ? "selected" : ""
           }`}
-          to="?catagory=Pizza"
+          to="?category=Pizza"
         >
           Pizza
         </Link>
 
         <Link
           className={`item-type pizza ${
-            typeFilter === 'Drink' ? 'selected' : ''
+            typeFilter === "Drink" ? "selected" : ""
           }`}
-          to="?catagory=Drink"
+          to="?category=Drink"
         >
           Drink
         </Link>
 
         <Link
           className={`item-type burger ${
-            typeFilter === 'Burger' ? 'selected' : ''
+            typeFilter === "Burger" ? "selected" : ""
           }`}
-          to="?catagory=Burger"
+          to="?category=Burger"
         >
           Burger
         </Link>
 
         <Link
           className={`item-type sandwich ${
-            typeFilter === 'Sandwich' ? 'selected' : ''
+            typeFilter === "Sandwich" ? "selected" : ""
           }`}
-          to="?catagory=Sandwich"
+          to="?category=Sandwich"
         >
           Sandwich
         </Link>
