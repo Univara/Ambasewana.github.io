@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import Hero from '../components/hero';
 import Promo from '../components/Promo';
 import Features from '../components/Features';
@@ -15,19 +16,12 @@ function Pages() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    useEffect(() => {
-      window.scrollTo(0, 0);
 
-      // Hide the Transition component after 3 seconds
-      const timeout = setTimeout(() => {
-        setShowTransition(false);
-      }, 3000);
+    // Hide the Transition component after 3 seconds
+    const timeout = setTimeout(() => {
+      setShowTransition(false);
+    }, 3000);
 
-      // Cleanup the timeout when the component unmounts
-      return () => {
-        clearTimeout(timeout);
-      };
-    }, []);
     // Cleanup the timeout when the component unmounts
     return () => {
       clearTimeout(timeout);
