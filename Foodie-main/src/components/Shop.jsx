@@ -45,13 +45,14 @@ function Shop() {
     message: '',
     visible: false,
   });
+  const [foodCategory, setFoodCategory] = useState('chinese'); // Default category is Chinese
 
   useEffect(() => {
-    // Fetch data when the component mounts
+    // Fetch data based on foodCategory
     const fetchFoodData = async () => {
       try {
         const response = await fetch(
-          'http://localhost:3000/api/products/chinese'
+          `http://localhost:3000/api/products/${foodCategory}`
         );
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -65,7 +66,7 @@ function Shop() {
 
     fetchFoodData();
     window.scrollTo(0, 0);
-  }, []);
+  }, [foodCategory]);
 
   useEffect(() => {
     // Disable transition after 3 seconds
@@ -144,6 +145,12 @@ function Shop() {
     </div>
   ));
 
+  // Map food categories to their respective filter options
+  const filterOptions = {
+    chinese: ['Soup', 'Quick Dishes', 'Rice', 'Noodles', 'Pasta', 'Chopsuey(Rice)', 'Chopsuey(No Rice)', 'Devilled', 'Curry', 'Prawns', 'Fish', 'Chicken', 'Cuttle Fish'],
+    indian: ['Salad', 'Vegetable', ' Non Vegetable', 'Vegetable Pulow', 'Chicken Kebab', 'Vegetable Kebab', 'Roti Naan', 'Set Menu', 'Kottu Naan'],
+  };
+
   return (
     <div className="shop-container">
       {showTransition && <Transition />}
@@ -152,6 +159,31 @@ function Shop() {
         visible={notification.visible}
       />
       <h1>Explore Our Items</h1>
+
+      {/* Food category switch */}
+      <div className="food-category-switch switch-container">
+        <div className="switch">
+          <input
+            type="radio"
+            id="chinese"
+            value="chinese"
+            checked={foodCategory === 'chinese'}
+            onChange={() => setFoodCategory('chinese')}
+          />
+          <label htmlFor="chinese" className="switch-label">Chinese</label>
+        </div>
+        <div className="switch">
+          <input
+            type="radio"
+            id="indian"
+            value="indian"
+            checked={foodCategory === 'indian'}
+            onChange={() => setFoodCategory('indian')}
+          />
+          <label htmlFor="indian" className="switch-label">Indian</label>
+        </div>
+      </div>
+
       <div className="search-container">
         <div className="input-wrapper">
           <i className="fas fa-search search-icon"></i>
@@ -169,34 +201,15 @@ function Shop() {
         <Link className={`item-type ${!typeFilter ? 'selected' : ''}`} to=".">
           All
         </Link>
-
-        <Link
-          className={`item-type ${typeFilter === 'Pizza' ? 'selected' : ''}`}
-          to="?category=Pizza"
-        >
-          Pizza
-        </Link>
-
-        <Link
-          className={`item-type ${typeFilter === 'Drink' ? 'selected' : ''}`}
-          to="?category=Drink"
-        >
-          Drink
-        </Link>
-
-        <Link
-          className={`item-type ${typeFilter === 'Burger' ? 'selected' : ''}`}
-          to="?category=Burger"
-        >
-          Burger
-        </Link>
-
-        <Link
-          className={`item-type ${typeFilter === 'Sandwich' ? 'selected' : ''}`}
-          to="?category=Sandwich"
-        >
-          Sandwich
-        </Link>
+        {filterOptions[foodCategory].map((category) => (
+          <Link
+            key={category}
+            className={`item-type ${typeFilter === category ? 'selected' : ''}`}
+            to={`?category=${category}`}
+          >
+            {category}
+          </Link>
+        ))}
       </nav>
 
       <div className="item-container">{ItemsElements}</div>
