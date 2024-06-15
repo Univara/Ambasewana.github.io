@@ -42,7 +42,7 @@ export function addToCart(item, cart, setCart) {
 function Shop() {
   const [cart, setCart] = useRecoilState(CartState);
   const [visible, setVisible] = React.useState(8);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [items, setItems] = React.useState([]);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [showTransition, setShowTransition] = useState(true);
@@ -147,14 +147,18 @@ function Shop() {
       />
       <h1>Explore Our Items</h1>
       <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search items..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="search-bar"
-        />
+        <div className="input-wrapper">
+          <i className="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="Search items..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-bar"
+          />
+        </div>
       </div>
+
       <nav className="filter-nav">
         <Link className="item-type" to=".">
           All
