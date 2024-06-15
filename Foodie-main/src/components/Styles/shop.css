@@ -3,9 +3,7 @@
   background-color: #f9f6f0;
   padding: 2rem;
 }
-.shop-container > h1 {
-  font-family: Rubik, sans-serif;
-}
+
 .filter-nav {
   padding: 2rem;
   display: flex;
@@ -311,4 +309,11 @@ input#chinese:checked ~ .switch-slider {
 
 input#indian:checked ~ .switch-slider {
   transform: translateX(100%);
+}
+
+.header-container {
+  font-family: Rubik, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
