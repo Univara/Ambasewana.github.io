@@ -10,6 +10,9 @@ import { AuthProvider } from './config/Context';
 import RouteTracker from './RouterTracker';
 
 import FoodDisplay from './constants/foodDisplay.jsx';
+import Cart from './components/Cart.jsx';
+import OrderSummary from './components/OrderSummary.jsx';
+import OrderDetails from './components/OrderSummary.jsx';
 
 function App() {
   return (
@@ -28,6 +31,8 @@ function App() {
               >
                 <Route index element={<Pages />} />
                 <Route path="shop" element={<Shop />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/order-details" element={<OrderDetails />} />
 
                 <Route path="FoodDisplay" element={<FoodDisplay />} />
               </Route>

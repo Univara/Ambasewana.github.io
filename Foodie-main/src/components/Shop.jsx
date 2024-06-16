@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { atom, useRecoilState, selector } from 'recoil';
 import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
@@ -27,12 +27,14 @@ export function addToCart(item, cart, setCart) {
   const updatedCart = { ...cart };
 
   if (updatedCart[item.id]) {
-    updatedCart[item.id].quantity += 1; // Increment the quantity
+    // Item is already in cart, increment quantity
+    updatedCart[item.id].quantity += 1;
   } else {
-    updatedCart[item.id] = { ...item, quantity: 1 }; // Add new item with quantity 1
+    // Item is not in cart, add it with quantity 1
+    updatedCart[item.id] = { ...item, quantity: 1 };
   }
 
-  setCart(updatedCart);
+  setCart(updatedCart); // Update cart state
 }
 
 function Shop() {
@@ -121,8 +123,8 @@ function Shop() {
         <button
           className="cart-button"
           onClick={() => {
-            addToCart(item, cart, setCart);
-            toggleClicked(item);
+            addToCart(item, cart, setCart); // Call addToCart function
+            toggleClicked(item); // Toggle clicked state
             setNotification({
               message: `${item.name} has been added to your cart!`,
               visible: true,
