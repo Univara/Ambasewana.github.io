@@ -8,6 +8,7 @@ import { FaTimes } from 'react-icons/fa';
 import './Styles/Navbar.css';
 import './Styles/Cart.css';
 import Cart from './Cart';
+// import { logo } from '../assets';
 
 const Navbar = () => {
   const cart = useRecoilValue(CartState);
