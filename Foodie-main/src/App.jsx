@@ -1,16 +1,15 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import Layout from "./Layout/Layout";
-import Shop from "./components/Shop";
-import Pages from "./Layout/Pages";
-import { RecoilRoot } from "recoil";
-import Test from "./components/test";
-import Login from "./components/Login";
-import { AuthProvider } from "./config/Context";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Layout from './Layout/Layout';
+import Shop from './components/Shop';
+import Pages from './Layout/Pages';
+import { RecoilRoot } from 'recoil';
 
-import RouteTracker from "./RouterTracker";
+import { AuthProvider } from './config/Context';
 
-import FoodDisplay from "./constants/foodDisplay.jsx";
+import RouteTracker from './RouterTracker';
+
+import FoodDisplay from './constants/foodDisplay.jsx';
 
 function App() {
   return (
@@ -29,8 +28,6 @@ function App() {
               >
                 <Route index element={<Pages />} />
                 <Route path="shop" element={<Shop />} />
-                <Route path="signup" element={<Test />} />
-                <Route path="login" element={<Login />} />
 
                 <Route path="FoodDisplay" element={<FoodDisplay />} />
               </Route>
