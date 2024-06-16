@@ -7,10 +7,12 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .order-details h2 {
   text-align: center;
+  color: #333;
 }
 
 .order-details .cart-list-container {
@@ -37,16 +39,23 @@
   width: 120px;
   height: auto;
   margin-right: 20px;
+  border-radius: 4px; /* Add rounded corners to images */
 }
 
 .order-details .cart-item-info {
-  margin-bottom: 5px;
   font-size: 18px;
+  color: #555;
+}
+
+.order-details .cart-item-name {
+  font-weight: bold;
+  color: #333;
 }
 
 .order-details .cart-item-price {
   margin-left: auto;
   font-size: 16px;
+  color: #888;
 }
 
 .order-details .divider {
@@ -57,6 +66,9 @@
 .order-details .total-price {
   margin-bottom: 20px;
   text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
 }
 
 .order-details .button {
@@ -69,6 +81,36 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  text-align: center;
+}
+
+.order-details .button:hover {
+  background-color: #45a049;
+}
+
+/* Form Styles */
+.input-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.input-group input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 /* Responsive adjustments */
@@ -86,5 +128,19 @@
 
   .order-details .cart-item-info {
     font-size: 14px; /* Decrease font size for item info on smaller screens */
+  }
+
+  .order-details .total-price {
+    font-size: 1em; /* Adjust font size for total price on smaller screens */
+  }
+
+  .order-details .button {
+    font-size: 14px; /* Adjust button font size for smaller screens */
+    padding: 8px; /* Adjust button padding for smaller screens */
+  }
+
+  .input-group input {
+    width: calc(100% - 16px); /* Adjust input width for smaller screens */
+    padding: 8px; /* Adjust input padding for smaller screens */
   }
 }

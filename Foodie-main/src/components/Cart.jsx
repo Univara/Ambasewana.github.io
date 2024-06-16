@@ -4,7 +4,8 @@ import { dec, del, emptycart, inc, burger1 } from '../assets';
 import { CartState } from './Shop'; // Import Recoil atom for cart state
 import { useNavigate } from 'react-router-dom'; // Updated import for useNavigate
 
-function Cart() {
+function Cart({ closeSidebar }) {
+  // Add closeSidebar prop
   const [cart, setCart] = useRecoilState(CartState);
   const [userName, setUserName] = useState('');
   const [tableNumber, setTableNumber] = useState('');
@@ -71,6 +72,7 @@ function Cart() {
         cart,
       },
     });
+    closeSidebar(); // Close the sidebar upon checkout
   };
 
   if (Object.keys(cart).length === 0) {

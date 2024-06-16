@@ -23,6 +23,10 @@ const Navbar = () => {
     setSidebarOpen((prevState) => !prevState);
   };
 
+  const closeSidebar = () => {
+    setSidebarOpen(false); // Close sidebar function
+  };
+
   return (
     <header>
       <div className="nav-container container">
@@ -58,7 +62,8 @@ const Navbar = () => {
                     <FaTimes />
                   </button>
                 </div>
-                <Cart />
+                <Cart closeSidebar={closeSidebar} />{' '}
+                {/* Pass closeSidebar as prop */}
               </aside>
             </div>
           </div>
