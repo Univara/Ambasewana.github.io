@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil';
+import { dec, del, emptycart, inc, burger1 } from '../assets';
 import { CartState } from './Shop'; // Import Recoil atom for cart state
 
 function Cart() {
@@ -51,6 +52,9 @@ function Cart() {
     return (
       <div className="empty-cart">
         <h1>Oops! Your Cart is Empty</h1>
+        <div className="empty-cart-gif">
+          <img src={emptycart} width="200px" />
+        </div>
       </div>
     );
   }
@@ -61,7 +65,7 @@ function Cart() {
         {Object.values(cart).map((item) => (
           <div key={item.id} className="cart-list">
             <div className="cart-item-details">
-              <img src={item.image} width="120px" alt={item.name} />
+              <img src={burger1} width="120px" alt={item.name} />
               <div className="cart-item-info">
                 <p className="cart-item-name">{item.name}</p>
                 <p>Price: Rs.{item.price}</p>
@@ -69,7 +73,8 @@ function Cart() {
                   className="Btn"
                   onClick={() => handleRemoveItem(item.id)}
                 >
-                  Remove
+                  <img src={del} className="sign" width="15px" />
+                  <div className="text">Remove</div>
                 </button>
               </div>
             </div>
@@ -78,22 +83,24 @@ function Cart() {
                 className="qty-button"
                 onClick={() => decrementQuantity(item.id)}
               >
-                -
+                <img src={dec} width="20px" />
               </button>
-              <p>{item.quantity}</p>
+              <p>{item.quantity || 1}</p>
               <button
                 className="qty-button"
                 onClick={() => incrementQuantity(item.id)}
               >
-                +
+                <img src={inc} width="20px" />
               </button>
             </div>
+
             <p className="cart-item-price">
               SubTotal: Rs.{calculateSubtotal(item)}
             </p>
           </div>
         ))}
       </div>
+      <div className="divider"></div>
       <div className="total-price">
         <h2>Total Price: Rs.{total}</h2>
       </div>
