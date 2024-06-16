@@ -2,7 +2,9 @@
 .order-details {
   max-width: 600px;
   margin: 0 auto;
-  margin-top: 5.5rem;
+  margin-top: 8rem;
+  margin-bottom: 3rem;
+
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -73,7 +75,9 @@
 
 .order-details .button {
   display: block;
-  width: 100%;
+  width: 90%;
+  max-width: 300px; /* Set a max-width for larger screens */
+  margin: 0 auto; /* Center the button */
   padding: 10px;
   font-size: 16px;
   background-color: #4caf50;
@@ -82,6 +86,7 @@
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
+  transition: background-color 0.3s ease, padding 0.3s ease; /* Smooth transition for hover effects */
 }
 
 .order-details .button:hover {
@@ -116,8 +121,9 @@
 /* Responsive adjustments */
 @media only screen and (max-width: 600px) {
   .order-details {
-    max-width: 100%;
-    margin-top: 3rem; /* Adjust margin top for smaller screens */
+    max-width: 80%;
+    margin-top: 7rem; /* Adjust margin top for smaller screens */
+    margin-bottom: 3rem;
     padding: 10px; /* Reduce padding for smaller screens */
   }
 
