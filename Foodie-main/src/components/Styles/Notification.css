@@ -11,8 +11,22 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: top 0.3s ease-in-out;
   z-index: 1000;
+  max-width: 90%;
+  box-sizing: border-box;
 }
 
 .notification.show {
   top: 20px;
+}
+
+@media (max-width: 600px) {
+  .notification {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    top: -50px; /* To ensure smooth animation on mobile as well */
+  }
+
+  .notification.show {
+    top: 10px;
+  }
 }

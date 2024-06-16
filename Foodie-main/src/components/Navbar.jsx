@@ -30,7 +30,9 @@ const Navbar = () => {
   return (
     <header>
       <div className="nav-container container">
-        <h4 className="logo">Ambasewana</h4>
+        <Link to="/">
+          <h4 className="logo">Ambasewana</h4>
+        </Link>
         <div className="nav-container">
           <nav className={`site-nav ${isOpen ? 'site-nav--open' : ''}`}>
             <ul>

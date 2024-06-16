@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import axios from 'axios'; // Import Axios for HTTP requests
 import { burger1 } from '../assets'; // Adjust the import path as needed
 import './Styles/OrderDetails.css';
 
@@ -34,6 +35,41 @@ function OrderDetails() {
   };
 
   const total = calculateTotalPrice();
+
+  const handlePlaceOrder = async () => {
+    try {
+      const orderItems = Object.values(cart).map((item) => ({
+        itemName: item.name,
+        image: burger1, // Replace with the actual image URL or logic to get image URL
+        price: item.price,
+        quantity: item.quantity,
+      }));
+
+      const orderData = {
+        customerName: userName,
+        table: tableNumber,
+        orderNumber: 'your_order_number_here', // Generate/order number as needed
+        orderStatus: 'pending', // Example status, adjust as per your app logic
+        items: orderItems,
+      };
+      console.log(orderData);
+      // Send POST request to server
+      const response = await axios.post(
+        'http://localhost:3000/api/orders',
+        orderData
+      );
+
+      // Handle success response
+      console.log('Order placed successfully:', response.data);
+
+      // Optionally, you can redirect or show a success message here
+      setIsSubmitted(false); // Reset submission state if needed
+    } catch (error) {
+      // Handle error
+      console.error('Error placing order:', error);
+      alert('Failed to place order. Please try again later.');
+    }
+  };
 
   return (
     <div className="order-details">
@@ -91,7 +127,9 @@ function OrderDetails() {
           <div className="total-price">
             <h2>Total Price: Rs.{total}</h2>
           </div>
-          <button className="button">Place Order</button>
+          <button onClick={handlePlaceOrder} className="button">
+            Place Order
+          </button>
         </>
       )}
     </div>
