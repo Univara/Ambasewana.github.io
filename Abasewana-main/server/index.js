@@ -198,13 +198,13 @@ app.get('/api/products/:id', async (req, res) => {
   }
 });
 
-app.get('/api/hello', async (req, res) => {
-  try {
-    return 'hello';
-  } catch (error) {
-    console.error('error');
-  }
-});
+// app.get('/api/hello', async (req, res) => {
+//   try {
+//     return 'hello';
+//   } catch (error) {
+//     console.error('error');
+//   }
+// });
 
 //end point to set orders
 // app.post('/api/orders', async (req, res) => {

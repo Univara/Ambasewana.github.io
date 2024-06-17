@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { atom, useRecoilState, selector } from 'recoil';
 import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
-import Transition from '../components/Transition';
-import Notification from '../components/notification';
+import Transition from './Transition';
+import Notification from './notification';
 import './Styles/shop.css';
 import { burger1 } from '../assets';
 
