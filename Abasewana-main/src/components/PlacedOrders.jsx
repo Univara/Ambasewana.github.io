@@ -1,24 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import useWebSocket from 'react-use-websocket';
 import './Styles/PlacedOrders.css';
 
 function PlacedOrders() {
   const location = useLocation();
-  const { orderData } = location.state || {}; // Destructure orderData from state
+  const { orderData } = location.state || {};
+  const [currentOrderData, setCurrentOrderData] = useState(orderData);
 
-  if (!orderData) {
+  const { lastMessage } = useWebSocket('ws://localhost:3000', {
+    onOpen: () => console.log('Connected to WebSocket'),
+    onClose: () => console.log('Disconnected from WebSocket'),
+  });
+
+  useEffect(() => {
+    if (lastMessage !== null) {
+      const updatedOrder = JSON.parse(lastMessage.data);
+      if (
+        currentOrderData &&
+        currentOrderData.orderNumber === updatedOrder.orderNumber
+      ) {
+        setCurrentOrderData((prevData) => ({
+          ...prevData,
+          orderStatus: updatedOrder.orderStatus,
+        }));
+      }
+    }
+  }, [lastMessage, currentOrderData]);
+
+  if (!currentOrderData) {
     return <p>No order data available.</p>;
   }
 
   return (
     <div className="placed-orders">
       <h2>Order Confirmation</h2>
-      <p>Customer Name: {orderData.customerName}</p>
-      <p>Table Number: {orderData.table}</p>
-      <p>Order Number: {orderData.orderNumber}</p>
-      <p>Order Status: {orderData.orderStatus}</p>
+      <p>Customer Name: {currentOrderData.customerName}</p>
+      <p>Table Number: {currentOrderData.table}</p>
+      <p>Order Number: {currentOrderData.orderNumber}</p>
+      <p>Order Status: {currentOrderData.orderStatus}</p>
       <div className="order-items">
-        {orderData.items.map((item, index) => (
+        {currentOrderData.items.map((item, index) => (
           <div key={index} className="order-item">
             <img src={item.image} alt={item.itemName} />
             <p>{item.itemName}</p>

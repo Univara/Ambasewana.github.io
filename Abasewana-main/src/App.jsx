@@ -11,7 +11,7 @@ import RouteTracker from './RouterTracker';
 
 import FoodDisplay from './constants/foodDisplay.jsx';
 import Cart from './components/Cart.jsx';
-import OrderSummary from './components/OrderSummary.jsx';
+
 import OrderDetails from './components/OrderSummary.jsx';
 import PlacedOrders from './components/PlacedOrders.jsx';
 
