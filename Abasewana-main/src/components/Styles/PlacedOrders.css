@@ -1,0 +1,35 @@
+.placed-orders {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 8rem;
+  font-family: Arial, sans-serif;
+}
+
+.order-items {
+  margin-top: 20px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.order-item img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+.order-item p {
+  margin: 0;
+  padding: 0;
+}
+
+.order-item-name {
+  font-weight: bold;
+}

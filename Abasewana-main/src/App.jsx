@@ -13,6 +13,7 @@ import FoodDisplay from './constants/foodDisplay.jsx';
 import Cart from './components/Cart.jsx';
 import OrderSummary from './components/OrderSummary.jsx';
 import OrderDetails from './components/OrderSummary.jsx';
+import PlacedOrders from './components/PlacedOrders.jsx';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
                 <Route path="shop" element={<Shop />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/order-details" element={<OrderDetails />} />
-
+                <Route path="/placed-orders" element={<PlacedOrders />} />
                 <Route path="FoodDisplay" element={<FoodDisplay />} />
               </Route>
             </Routes>
