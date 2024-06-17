@@ -2,8 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
 const cors = require('cors');
-const fileUpload = require('express-fileupload'); // Import express-fileupload middleware
+const fileUpload = require('express-fileupload');
 const serviceAccount = require('./key.json');
+const WebSocket = require('ws');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -15,27 +16,61 @@ admin.initializeApp({
 const db = admin.firestore();
 const storage = admin.storage();
 const app = express();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(fileUpload()); // Use express-fileupload middleware
+app.use(fileUpload());
 
-// Endpoint to add a inidan product to the database
+// WebSocket server setup
+const wss = new WebSocket.Server({ noServer: true });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+
+  ws.on('message', (message) => {
+    console.log(`Received message => ${message}`);
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
+
+function broadcast(data) {
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
+}
+
+// Express server setup
+const server = app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+// Upgrade HTTP server to handle WebSocket connections
+server.on('upgrade', (request, socket, head) => {
+  wss.handleUpgrade(request, socket, head, (ws) => {
+    wss.emit('connection', ws, request);
+  });
+});
+
+// API endpoints
+
+// Endpoint to add Indian products
 app.post('/api/products/indian', async (req, res) => {
   try {
     const { name, description, price, category } = req.body;
 
-    // Check if image file is provided
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).json({ error: 'No image file provided' });
     }
 
     const imageFile = req.files.image;
-
-    // Upload image to Firebase Storage
     const storageRef = storage.bucket().file(`images/${Date.now()}_${name}`);
-    const fileBuffer = imageFile.data; // Access image data from req.files
+    const fileBuffer = imageFile.data;
 
     await storageRef.save(fileBuffer, {
       metadata: {
@@ -43,13 +78,11 @@ app.post('/api/products/indian', async (req, res) => {
       },
     });
 
-    // Get the download URL
     const imageUrl = await storageRef.getSignedUrl({
       action: 'read',
       expires: '03-01-2500',
     });
 
-    // Add product details to Firestore with the image URL
     const docRef = await db.collection('indian_products').add({
       name,
       description,
@@ -65,21 +98,18 @@ app.post('/api/products/indian', async (req, res) => {
   }
 });
 
-// Endpoint to add a inidan product to the database
+// Endpoint to add Chinese products
 app.post('/api/products/chinese', async (req, res) => {
   try {
     const { name, description, price, category } = req.body;
 
-    // Check if image file is provided
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).json({ error: 'No image file provided' });
     }
 
     const imageFile = req.files.image;
-
-    // Upload image to Firebase Storage
     const storageRef = storage.bucket().file(`images/${Date.now()}_${name}`);
-    const fileBuffer = imageFile.data; // Access image data from req.files
+    const fileBuffer = imageFile.data;
 
     await storageRef.save(fileBuffer, {
       metadata: {
@@ -87,13 +117,11 @@ app.post('/api/products/chinese', async (req, res) => {
       },
     });
 
-    // Get the download URL
     const imageUrl = await storageRef.getSignedUrl({
       action: 'read',
       expires: '03-01-2500',
     });
 
-    // Add product details to Firestore with the image URL
     const docRef = await db.collection('chinese_products').add({
       name,
       description,
@@ -109,7 +137,7 @@ app.post('/api/products/chinese', async (req, res) => {
   }
 });
 
-// Endpoint to get all indian products from the database
+// Endpoint to fetch all Indian products
 app.get('/api/products/indian', async (req, res) => {
   try {
     const snapshot = await db.collection('indian_products').get();
@@ -129,7 +157,7 @@ app.get('/api/products/indian', async (req, res) => {
   }
 });
 
-// Endpoint to get all indian products from the database
+// Endpoint to fetch all Chinese products
 app.get('/api/products/chinese', async (req, res) => {
   try {
     const snapshot = await db.collection('chinese_products').get();
@@ -149,7 +177,7 @@ app.get('/api/products/chinese', async (req, res) => {
   }
 });
 
-//endpoint to get first 4 products from the database
+// Endpoint to fetch main products (example: limiting to 2 for demonstration)
 app.get('/api/products/main', async (req, res) => {
   try {
     const snapshot = await db.collection('products').limit(2).get();
@@ -169,17 +197,15 @@ app.get('/api/products/main', async (req, res) => {
   }
 });
 
-// Endpoint to get a product by ID
+// Endpoint to fetch a product by ID
 app.get('/api/products/:id', async (req, res) => {
   try {
     const productId = req.params.id;
 
-    // Check if the product ID is provided
     if (!productId) {
       return res.status(400).json({ error: 'Product ID is required' });
     }
 
-    // Retrieve the product from Firestore
     const docRef = await db.collection('products').doc(productId).get();
 
     if (!docRef.exists) {
@@ -198,56 +224,18 @@ app.get('/api/products/:id', async (req, res) => {
   }
 });
 
-app.get('/api/hello', async (req, res) => {
-  try {
-    return 'hello';
-  } catch (error) {
-    console.error('error');
-  }
-});
-
-//end point to set orders
-// app.post('/api/orders', async (req, res) => {
-//   try {
-//     const { items, tableID, dateTime } = req.body;
-
-//     // Validate the order data (add more validation as needed)
-
-//     // Save the order to the database (you need to implement this part)
-//     // For example, you might use Firestore to store orders
-//     const orderRef = await db.collection('orders').add({
-//       items,
-//       tableID,
-//       dateTime,
-//     });
-
-//     res.status(201).json({ orderId: orderRef.id });
-//   } catch (error) {
-//     console.error('Error adding order: ', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
-// // Endpoint to place an order
-// Endpoint to place an order
+// Endpoint to add an order
 app.post('/api/orders', async (req, res) => {
   try {
-    const {
-      customerName,
-      table,
-      items, // Assuming items is an array of objects containing itemName, image, price, and quantity
-      orderNumber,
-      orderStatus,
-    } = req.body;
+    const { customerName, table, items, orderNumber, orderStatus } = req.body;
 
-    // Validate the order data (add more validation as needed)
     if (!customerName || !orderNumber || !orderStatus) {
       return res.status(400).json({
         error:
-          'Please provide all required fields: userName, tableNumber, orderNumber, orderStatus, and valid items array with itemName, image, price, and quantity',
+          'Please provide all required fields: customerName, table, orderNumber, orderStatus, and valid items array with itemName, image, price, and quantity',
       });
     }
 
-    // Save the order to the database (Firestore or MongoDB example)
     const orderData = {
       customerName,
       table,
@@ -259,11 +247,13 @@ app.post('/api/orders', async (req, res) => {
         price: item.price,
         quantity: item.quantity,
       })),
-      dateTime: new Date().toISOString(), // Adding current date/time as ISO string
+      dateTime: new Date().toISOString(),
     };
 
-    // Example: Saving to Firestore
     const orderRef = await db.collection('orders').add(orderData);
+
+    // Broadcast the new order to all connected clients
+    broadcast(orderData);
 
     res.status(201).json({ orderId: orderRef.id });
   } catch (error) {
@@ -272,6 +262,44 @@ app.post('/api/orders', async (req, res) => {
   }
 });
 
+// Endpoint to update order status
+app.put('/api/orders/:id', async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const { orderStatus } = req.body;
+
+    if (!orderId || !orderStatus) {
+      return res
+        .status(400)
+        .json({ error: 'Order ID and orderStatus are required' });
+    }
+
+    const orderRef = db.collection('orders').doc(orderId);
+    const snapshot = await orderRef.get();
+
+    if (!snapshot.exists) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    await orderRef.update({ orderStatus });
+
+    const updatedOrderSnapshot = await orderRef.get();
+    const updatedOrderData = {
+      id: updatedOrderSnapshot.id,
+      ...updatedOrderSnapshot.data(),
+    };
+
+    // Broadcast updated order to all connected clients
+    broadcast(updatedOrderData);
+
+    res.status(200).json({ message: 'Order status updated successfully' });
+  } catch (error) {
+    console.error('Error updating order status: ', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

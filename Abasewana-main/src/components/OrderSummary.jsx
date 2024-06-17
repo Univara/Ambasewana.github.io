@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import Axios for HTTP requests
 import { burger1 } from '../assets'; // Adjust the import path as needed
 import './Styles/OrderDetails.css';
 
 function OrderDetails() {
   const location = useLocation();
+  const navigate = useNavigate(); // Use useNavigate for navigation
   const { cart } = location.state;
 
   const [userName, setUserName] = useState('');
   const [tableNumber, setTableNumber] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false); // New state for order confirmation
 
   const handleUserNameChange = (e) => setUserName(e.target.value);
   const handleTableNumberChange = (e) => setTableNumber(e.target.value);
@@ -52,7 +54,7 @@ function OrderDetails() {
         orderStatus: 'pending', // Example status, adjust as per your app logic
         items: orderItems,
       };
-      console.log(orderData);
+
       // Send POST request to server
       const response = await axios.post(
         'http://localhost:3000/api/orders',
@@ -62,8 +64,13 @@ function OrderDetails() {
       // Handle success response
       console.log('Order placed successfully:', response.data);
 
-      // Optionally, you can redirect or show a success message here
-      setIsSubmitted(false); // Reset submission state if needed
+      // Show confirmation message
+      setOrderPlaced(true);
+
+      // Redirect to the Placed Orders page with state
+      setTimeout(() => {
+        navigate('/placed-orders', { state: { orderData } });
+      }, 2000); // Adjust delay as needed
     } catch (error) {
       // Handle error
       console.error('Error placing order:', error);
@@ -130,6 +137,11 @@ function OrderDetails() {
           <button onClick={handlePlaceOrder} className="button">
             Place Order
           </button>
+          {orderPlaced && (
+            <div className="confirmation-seal">
+              <p>Order placed successfully!</p>
+            </div>
+          )}
         </>
       )}
     </div>
