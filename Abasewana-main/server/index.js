@@ -57,6 +57,19 @@ server.on("upgrade", (request, socket, head) => {
   });
 });
 
+const QRCode = require('qrcode');
+
+app.get('/api/qrcode', async (req, res) => {
+  try {
+    const url = req.query.url || 'https://www.example.com';
+    const qrCode = await QRCode.toDataURL(url);
+    res.send({ qrCode });
+  } catch (err) {
+    console.error('Error generating QR code:', err);
+    res.status(500).send('Server Error');
+  }
+});
+
 // API endpoints
 
 // Endpoint to add Indian products

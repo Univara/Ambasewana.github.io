@@ -1,74 +1,58 @@
-import React, { useState, useRef } from 'react';
-import { QRCodeCanvas } from 'react-qrcode-logo'; // Assuming correct import statement
-import './Styles/QRCodeGenerator.css';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const QRCodeGenerator = () => {
-  const link = 'https://www.example.com'; // Example link
-  const [number, setNumber] = useState('');
-  const [qrData, setQrData] = useState('');
-  const qrRef = useRef(null);
+function QRCodeGenerator() {
+  const [qrCode, setQRCode] = useState('');
+  const [tableNumber, setTableNumber] = useState('');
+  const [downloadReady, setDownloadReady] = useState(false);
 
-  const handleNumberChange = (e) => {
-    setNumber(e.target.value);
-  };
-
-  const handleGenerate = () => {
-    if (number.trim() === '') {
-      alert('Please enter a valid number');
-      return;
+  const generateQRCode = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/qrcode', {
+        params: {
+          url: 'https://www.example.com',
+          table: tableNumber.trim() // Include table number in params
+        },
+      });
+      setQRCode(response.data.qrCode);
+      setDownloadReady(true); // Set download readiness
+    } catch (error) {
+      console.error('Error fetching QR code:', error);
     }
-    const data = JSON.stringify({ link, number });
-    setQrData(data);
   };
 
   const handleDownload = () => {
-    const canvas = qrRef.current.querySelector('canvas');
-    if (canvas) {
-      const url = canvas.toDataURL('image/png');
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'qr-code.png';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = qrCode;
+    link.download = `qrcode_table_${tableNumber}.png`; // Specify the download file name here
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
-    <div className="container-qr">
+    <div className="App">
       <h1>QR Code Generator</h1>
-      <div>
-        <p>
-          Link:{' '}
-          <a href={link} target="_blank" rel="noopener noreferrer">
-            {link}
-          </a>
-        </p>
-      </div>
-      <input
-        type="number"
-        placeholder="Enter number"
-        value={number}
-        onChange={handleNumberChange}
-        className="input-field"
-      />
-      <button
-        onClick={handleGenerate}
-        className="generate-button"
-        disabled={!number.trim()}
-      >
-        Generate
-      </button>
-      <div className="qr-code" ref={qrRef}>
-        {qrData && <QRCodeCanvas value={qrData} />}
-      </div>
-      {qrData && (
-        <button onClick={handleDownload} className="download-button">
-          Download QR Code
-        </button>
+      <label>
+        Table Number:
+        <input
+          type="text"
+          value={tableNumber}
+          onChange={(e) => setTableNumber(e.target.value)}
+        />
+      </label>
+      <button onClick={generateQRCode}>Generate QR Code</button>
+      {qrCode && (
+        <div>
+          <img src={qrCode} alt="QR Code" />
+          {downloadReady && (
+            <button onClick={handleDownload}>Download QR Code</button>
+          )}
+        </div>
       )}
     </div>
   );
-};
+}
 
 export default QRCodeGenerator;
