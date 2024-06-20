@@ -14,6 +14,7 @@ import Cart from './components/Cart.jsx';
 
 import OrderDetails from './components/OrderSummary.jsx';
 import PlacedOrders from './components/PlacedOrders.jsx';
+import QRCodeGenerator from './components/QRCodeGenerator.jsx';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <AuthProvider>
           <BrowserRouter>
             <Routes>
+              <Route path="/qrgenerator" element={<QRCodeGenerator />} />
               <Route
                 path="/"
                 element={
