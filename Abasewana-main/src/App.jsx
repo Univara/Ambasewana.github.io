@@ -9,7 +9,7 @@ import { AuthProvider } from './config/Context';
 
 import RouteTracker from './RouterTracker';
 
-import FoodDisplay from './constants/foodDisplay.jsx';
+import OrderDisplay from './components/OrderDisplay.jsx';
 import Cart from './components/Cart.jsx';
 
 import OrderDetails from './components/OrderSummary.jsx';
@@ -39,7 +39,7 @@ function App() {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/order-details" element={<OrderDetails />} />
                 <Route path="/placed-orders" element={<PlacedOrders />} />
-                <Route path="FoodDisplay" element={<FoodDisplay />} />
+                <Route path="OrderDisplay" element={<OrderDisplay />} />
               </Route>
             </Routes>
             <RouteTracker />
