@@ -35,7 +35,7 @@ function QRCodeGenerator() {
     <div className="App">
       <h1>QR Code Generator</h1>
       <label>
-        Table Number:
+        Table Number here:
         <input
           type="text"
           value={tableNumber}
