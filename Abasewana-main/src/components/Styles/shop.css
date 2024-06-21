@@ -410,10 +410,11 @@ input#indian:checked ~ .switch-slider {
   font-weight: bold;
 }
 .category-scroll {
+  margin-bottom: 1.5rem;
   overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-x: hidden;
   white-space: nowrap; /* Prevent category links from wrapping */
   padding: 1rem 2rem; /* Adjust padding as needed */
-  background-color: #f0f0f0; /* Background color */
   margin-top: 1rem; /* Space above the scrollable section */
   display: flex; /* Ensure children are in a flex container */
   gap: 1rem; /* Space between category items */

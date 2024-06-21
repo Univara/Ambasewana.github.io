@@ -49,6 +49,9 @@ body::-webkit-scrollbar{
   background-color: #fbac57;
 }
 
+body{
+  padding: 0.2rem;
+}
 
 
 .button {
