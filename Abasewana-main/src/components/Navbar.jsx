@@ -1,20 +1,21 @@
-import { useState } from 'react';
-import { navLinks } from '../constants';
-import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { CartState } from './Shop';
-import { carticon } from '../assets';
-import { FaTimes } from 'react-icons/fa';
-import './Styles/Navbar.css';
-import './Styles/Cart.css';
-import Cart from './Cart';
+import { useState } from "react";
+import { navLinks } from "../constants";
+import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { CartState } from "./Shop";
+import { carticon } from "../assets";
+import { FaTimes } from "react-icons/fa";
+import "./Styles/Navbar.css";
+import "./Styles/Cart.css";
+import Cart from "./Cart";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const cart = useRecoilValue(CartState);
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   // Initialize tableNumber state
-  const tableNumber = localStorage.getItem('tableNumber');
+  const tableNumber = localStorage.getItem("tableNumber");
 
   const toggleNav = () => {
     setIsOpen((prevState) => !prevState);
@@ -32,10 +33,18 @@ const Navbar = () => {
     <header>
       <div className="nav-container container">
         <Link to="/">
-          <h4 className="logo">Ambasewana</h4>
+          <Link to="/">
+            <img
+              src={logo}
+              alt="logo"
+              className="logo"
+              style={{ width: "100px", height: "auto" }} // Adjust width as needed
+            />
+          </Link>
         </Link>
+
         <div className="nav-container">
-          <nav className={`site-nav ${isOpen ? 'site-nav--open' : ''}`}>
+          <nav className={`site-nav ${isOpen ? "site-nav--open" : ""}`}>
             <ul>
               {navLinks.map((nav) => (
                 <li key={nav.id}>
@@ -55,8 +64,8 @@ const Navbar = () => {
               <aside
                 className={`${
                   isSidebarOpen
-                    ? 'sidebar show-sidebar'
-                    : 'sidebar hide-sidebar'
+                    ? "sidebar show-sidebar"
+                    : "sidebar hide-sidebar"
                 }`}
               >
                 <div className="sidebar-header">
@@ -75,7 +84,7 @@ const Navbar = () => {
         </div>
 
         <div
-          className={`menu-toggle ${isOpen ? 'open' : ''}`}
+          className={`menu-toggle ${isOpen ? "open" : ""}`}
           onClick={toggleNav}
         >
           <div className="hamburger"></div>
