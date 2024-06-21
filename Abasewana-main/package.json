@@ -12,9 +12,12 @@
   "dependencies": {
     "@hookform/resolvers": "^3.2.0",
     "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dom": "^0.0.3",
     "express": "^4.19.2",
     "firebase": "^10.1.0",
+    "firebase-admin": "^12.1.1",
     "framer-motion": "^10.16.4",
     "html2canvas": "^1.4.1",
     "install": "^0.13.0",
