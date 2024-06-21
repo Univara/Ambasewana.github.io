@@ -32,7 +32,6 @@ const Navbar = () => {
   return (
     <header>
       <div className="nav-container container">
-        <Link to="/">
           <Link to="/">
             <img
               src={logo}
@@ -41,7 +40,7 @@ const Navbar = () => {
               style={{ width: "100px", height: "auto" }} // Adjust width as needed
             />
           </Link>
-        </Link>
+        
 
         <div className="nav-container">
           <nav className={`site-nav ${isOpen ? "site-nav--open" : ""}`}>
