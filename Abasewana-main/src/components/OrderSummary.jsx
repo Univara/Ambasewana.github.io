@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import Axios for HTTP requests
 import { burger1 } from '../assets'; // Adjust the import path as needed
@@ -14,8 +14,18 @@ function OrderDetails() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false); // New state for order confirmation
 
+  useEffect(() => {
+    const tableFromURL = new URLSearchParams(location.search).get('table');
+    const storedTableNumber = localStorage.getItem('tableNumber');
+
+    if (tableFromURL) {
+      setTableNumber(tableFromURL);
+    } else if (storedTableNumber) {
+      setTableNumber(storedTableNumber);
+    }
+  }, [location.search]);
+
   const handleUserNameChange = (e) => setUserName(e.target.value);
-  const handleTableNumberChange = (e) => setTableNumber(e.target.value);
 
   const handleSubmit = () => {
     if (userName && tableNumber) {
@@ -99,7 +109,7 @@ function OrderDetails() {
               id="tableNumber"
               type="text"
               value={tableNumber}
-              onChange={handleTableNumberChange}
+              onChange={(e) => setTableNumber(e.target.value)}
               required
             />
           </div>

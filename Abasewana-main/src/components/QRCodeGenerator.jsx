@@ -1,34 +1,27 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import QRCode from 'qrcode.react';
 
 function QRCodeGenerator() {
-  const [qrCode, setQRCode] = useState('');
   const [tableNumber, setTableNumber] = useState('');
-  const [downloadReady, setDownloadReady] = useState(false);
 
-  const generateQRCode = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/api/qrcode', {
-        params: {
-          url: 'https://www.example.com',
-          table: tableNumber.trim() // Include table number in params
-        },
-      });
-      setQRCode(response.data.qrCode);
-      setDownloadReady(true); // Set download readiness
-    } catch (error) {
-      console.error('Error fetching QR code:', error);
-    }
+  const handleInputChange = (event) => {
+    setTableNumber(event.target.value);
   };
 
   const handleDownload = () => {
-    // Create a temporary link element
-    const link = document.createElement('a');
-    link.href = qrCode;
-    link.download = `qrcode_table_${tableNumber}.png`; // Specify the download file name here
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Handle download logic here
+    if (tableNumber) {
+      const canvas = document.querySelector('canvas'); // Find the canvas element
+      if (canvas) {
+        const url = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `qrcode_table_${tableNumber}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
   };
 
   return (
@@ -36,19 +29,16 @@ function QRCodeGenerator() {
       <h1>QR Code Generator</h1>
       <label>
         Table Number:
-        <input
-          type="text"
-          value={tableNumber}
-          onChange={(e) => setTableNumber(e.target.value)}
-        />
+        <input type="text" value={tableNumber} onChange={handleInputChange} />
       </label>
-      <button onClick={generateQRCode}>Generate QR Code</button>
-      {qrCode && (
+      {tableNumber && (
         <div>
-          <img src={qrCode} alt="QR Code" />
-          {downloadReady && (
-            <button onClick={handleDownload}>Download QR Code</button>
-          )}
+          <QRCode
+            value={`http://localhost:5173/shop?table=${tableNumber}`}
+            size={200}
+          />
+          <br />
+          <button onClick={handleDownload}>Download QR Code</button>
         </div>
       )}
     </div>

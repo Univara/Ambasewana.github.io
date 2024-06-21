@@ -1,22 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { dec, del, emptycart, inc, burger1 } from '../assets';
 import { CartState } from './Shop'; // Import Recoil atom for cart state
 import { useNavigate } from 'react-router-dom'; // Updated import for useNavigate
 
-function Cart({ closeSidebar }) {
-  // Add closeSidebar prop
+function Cart({ closeSidebar, tableNumber }) {
   const [cart, setCart] = useRecoilState(CartState);
   const [userName, setUserName] = useState('');
-  const [tableNumber, setTableNumber] = useState('');
   const navigate = useNavigate(); // Initialize useNavigate hook
-
+  console.log(tableNumber);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === 'userName') {
       setUserName(value);
-    } else if (name === 'tableNumber') {
-      setTableNumber(value);
     }
   };
 
@@ -129,6 +125,14 @@ function Cart({ closeSidebar }) {
       <div className="divider"></div>
       <div className="total-price">
         <h2>Total Price: Rs.{total}</h2>
+      </div>
+      <div className="table-number-display">
+        {tableNumber && (
+          <div className="table-number-display">
+            <h3>Table Number: {tableNumber}</h3>
+          </div>
+        )}
+        {/* Display table number */}
       </div>
       <div className="checkout-btn">
         <button className="cart-button" onClick={handleCheckout}>
