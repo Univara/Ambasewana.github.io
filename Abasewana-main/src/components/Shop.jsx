@@ -264,7 +264,6 @@ function Shop() {
           </div>
         </div>
       </div>
-
       <div className="search-container">
         <div className="input-wrapper">
           <i className="fas fa-search search-icon"></i>
@@ -277,7 +276,6 @@ function Shop() {
           />
         </div>
       </div>
-
       {/* New horizontal scrollable section */}
       <div className="category-scroll">
         <Link
