@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { atom, useRecoilState, selector } from 'recoil';
-import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
-import Transition from './Transition';
-import Notification from './notification';
-import './Styles/shop.css';
-import { burger1 } from '../assets';
-import Avatar from 'react-avatar';
+import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { atom, useRecoilState, selector } from "recoil";
+import { BsFillCartPlusFill, BsCartCheckFill } from "react-icons/bs";
+import Transition from "./Transition";
+import Notification from "./notification";
+import "./Styles/shop.css";
+import { burger1 } from "../assets";
+import Avatar from "react-avatar";
+import { banner3} from '../assets'
 
 import soupImage from '../assets/pizza1.png';
 import dishes from '../assets/promo-3.png';
@@ -264,6 +265,28 @@ function Shop() {
           </div>
         </div>
       </div>
+
+      <li className="banner-item banner-sm">
+        <div className="banner-card">
+          <img
+            src={banner3}
+            width="550"
+            height="465"
+            loading="lazy"
+            alt="American Burgers"
+            className="deal-img"
+          />
+
+          <div className="banner-item-content">
+            <h3 className="banner-title">American Burgers</h3>
+            <p className="banner-text">50% off Now</p>
+            <Link to="/shop?catagory=Burger">
+              <button className="button">Order Now</button>
+            </Link>
+          </div>
+        </div>
+      </li>
+
       <div className="search-container">
         <div className="input-wrapper">
           <i className="fas fa-search search-icon"></i>

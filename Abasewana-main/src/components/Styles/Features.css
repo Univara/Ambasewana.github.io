@@ -34,11 +34,11 @@
 
 #span{
     font-size: 35px;
-    color: #ffa43e;
+    color: rgb(0, 119, 68);
 }
 .feature-button{
     margin-top: 1rem;
-    border: #ffa43e 1px solid;
+    border: rgb(0, 119, 68) 1px solid;
     outline: none;
 }
 .feature-info{

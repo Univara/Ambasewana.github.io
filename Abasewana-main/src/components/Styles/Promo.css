@@ -71,10 +71,10 @@
     border-radius: 50px;
 }
 .list::-webkit-scrollbar-thumb {
-    background-color: hsl(32, 100%, 59%);
+    background-color: rgb(0, 119, 68);
 }
 .list::-webkit-scrollbar-track {
-    border: 2px solid  hsl(32, 100%, 59%);
+    border: 2px solid  rgb(0, 119, 68);
     border-radius: 50px;
 }
 .list::-webkit-scrollbar-track {
