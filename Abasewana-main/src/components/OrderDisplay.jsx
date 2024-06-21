@@ -94,7 +94,7 @@ const OrderDisplay = () => {
       <h1 className="orders-heading">Orders</h1>
 
       {orders.map((order) => (
-        <div key={order.orderId} className="order-item">
+        <div key={order.orderId} className="order1">
           <div className="row">
             <div className="order-summary">
               <div className="order-info-group">
@@ -109,7 +109,10 @@ const OrderDisplay = () => {
                   <strong>Table:</strong> {order.table}
                 </p>
               </div>
-              <div className="order-actions">
+              <div className="status">
+                <p className="current-status">
+                  Current Status: {order.orderStatus}
+                </p>
                 <select
                   className="status-select"
                   value={order.orderStatus}
@@ -120,6 +123,9 @@ const OrderDisplay = () => {
                   <option value="Pending">Pending</option>
                   <option value="Preparing">Preparing</option>
                 </select>
+              </div>
+
+              <div className="order-actions">
                 <button
                   className="action-button"
                   onClick={() => handleDeleteOrder(order.orderId)}
