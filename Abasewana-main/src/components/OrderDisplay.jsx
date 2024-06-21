@@ -79,7 +79,11 @@ const OrderDisplay = () => {
   };
 
   if (loading) {
-    return <div className="orders-container">Loading...</div>;
+    return (
+      <div className="orders-container">
+        <div className="loader">Loading...</div>
+      </div>
+    );
   }
 
   if (error) {
@@ -97,10 +101,11 @@ const OrderDisplay = () => {
         {orders.map((order) => (
           <li key={order.orderId} className="order-item">
             <div className="order-summary">
-              <p className="order-info">Order ID: {order.orderId}</p>
-              <p className="order-info">Date Time: {new Date(order.dateTime).toLocaleString()}</p>
-              <p className="order-info">Order Number: {order.orderNumber}</p>
-              <p className="order-info">Order Status: {order.orderStatus}</p>
+              <div className="order-info-group">
+                <p className="order-info"><strong>Order ID:</strong> {order.orderId}</p>
+                <p className="order-info"><strong>Date Time:</strong> {new Date(order.dateTime).toLocaleString()}</p>
+                <p className="order-info"><strong>Order Number:</strong> {order.orderNumber}</p>
+              </div>
               <div className="order-actions">
                 <button className="action-button" onClick={() => handleDeleteOrder(order.orderId)}>Done</button>
                 <select
@@ -122,15 +127,17 @@ const OrderDisplay = () => {
                     <img src={item.image} alt={item.itemName || item.name} className="item-image" />
                   )}
                   <div className="item-details">
-                    <p className="item-info">Item Name: {item.itemName || item.name}</p>
-                    <p className="item-info">Quantity: {item.quantity}</p>
-                    <p className="item-info">Price: Rs.{item.price}</p>
+                    <p className="item-info"><strong>Item Name:</strong> {item.itemName || item.name}</p>
+                    <p className="item-info"><strong>Quantity:</strong> {item.quantity}</p>
+                    <p className="item-info"><strong>Price:</strong> Rs.{item.price}</p>
                   </div>
                 </li>
               ))}
             </ul>
-            <p className="customer-info">Customer Name: {order.customerName}</p>
-            <p className="customer-info">Table: {order.table}</p>
+            <div className="customer-details">
+              <p className="customer-info"><strong>Customer Name:</strong> {order.customerName}</p>
+              <p className="customer-info"><strong>Table:</strong> {order.table}</p>
+            </div>
           </li>
         ))}
       </ul>
