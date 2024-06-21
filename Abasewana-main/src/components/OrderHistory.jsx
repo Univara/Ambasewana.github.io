@@ -54,7 +54,7 @@ const OrderHistory = () => {
   return (
     <div className="order-history-container">
       <ToastContainer />
-      <Link to="/OrderDisplay">
+      <Link to="/order-display">
         <button>Go to Orders</button>
       </Link>
       <h1>Order History</h1>

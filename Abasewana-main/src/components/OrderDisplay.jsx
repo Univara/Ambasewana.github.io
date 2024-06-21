@@ -93,7 +93,7 @@ const OrderDisplay = () => {
   return (
     <div className="orders-container">
       <ToastContainer /> {/* ToastContainer for displaying notifications */}
-      <Link to="/OrderHistory">
+      <Link to="/order-history">
         <button className="order-history-button">Go to Order History</button>
       </Link>
       <h1 className="orders-heading">Orders</h1>
