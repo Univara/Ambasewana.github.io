@@ -7,7 +7,6 @@ import Notification from './notification';
 import './Styles/shop.css';
 import { burger1 } from '../assets';
 
-// Define Recoil state atoms and selectors
 export const CartState = atom({
   key: 'CartState',
   default: {},
@@ -49,9 +48,29 @@ function Shop() {
     visible: false,
   });
   const [foodCategory, setFoodCategory] = useState('chinese'); // Default category is Chinese
+  const [tableNumber, setTableNumber] = useState(null); // State to hold table number
+
+  // Fetch table number from URL and store in localStorage
+  useEffect(() => {
+    const tableFromURL = searchParams.get('table');
+    if (tableFromURL) {
+      localStorage.setItem('tableNumber', tableFromURL);
+      setTableNumber(tableFromURL);
+    } else {
+      localStorage.removeItem('tableNumber');
+      setTableNumber(null);
+    }
+  }, [searchParams]);
+
+  // Retrieve table number from localStorage on component mount
+  useEffect(() => {
+    const storedTableNumber = localStorage.getItem('tableNumber');
+    if (storedTableNumber) {
+      setTableNumber(storedTableNumber);
+    }
+  }, []);
 
   useEffect(() => {
-    // Fetch data based on foodCategory
     const fetchFoodData = async () => {
       try {
         const response = await fetch(
@@ -61,7 +80,7 @@ function Shop() {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setItems(data); // Set the items state with the fetched data
+        setItems(data);
       } catch (error) {
         console.error('Fetch error:', error);
       }
@@ -72,7 +91,6 @@ function Shop() {
   }, [foodCategory]);
 
   useEffect(() => {
-    // Disable transition after 3 seconds
     const timeout = setTimeout(() => {
       setShowTransition(false);
     }, 3000);
@@ -80,7 +98,6 @@ function Shop() {
     return () => clearTimeout(timeout);
   }, []);
 
-  // Filter and search logic
   const typeFilter = searchParams.get('category');
   const displayedItems = items.filter((item) => {
     const matchesType = typeFilter ? item.category === typeFilter : true;
@@ -90,12 +107,10 @@ function Shop() {
     return matchesType && matchesSearch;
   });
 
-  // Show more items handler
   const showMoreItems = () => {
     setVisible((prevVisible) => prevVisible + 4);
   };
 
-  // Toggle item clicked state
   const toggleClicked = (item) => {
     setItems((prevItems) =>
       prevItems.map((prevItem) =>
@@ -123,8 +138,9 @@ function Shop() {
         <button
           className="cart-button"
           onClick={() => {
-            addToCart(item, cart, setCart); // Call addToCart function
-            toggleClicked(item); // Toggle clicked state
+            addToCart(item, cart, setCart);
+            toggleClicked(item);
+
             setNotification({
               message: `${item.name} has been added to your cart!`,
               visible: true,
@@ -148,7 +164,6 @@ function Shop() {
     </div>
   ));
 
-  // Map food categories to their respective filter options
   const filterOptions = {
     chinese: [
       'Soup',
@@ -188,8 +203,8 @@ function Shop() {
 
       <div className="header-container">
         <h1>Explore Our Items</h1>
-
-        {/* Food category switch */}
+        <h2>Table Number: {tableNumber}</h2>
+        {/* Display table number */}
         <div className="food-category-switch switch-container">
           <div className="switch">
             <input
@@ -239,7 +254,7 @@ function Shop() {
           <Link
             key={category}
             className={`item-type ${typeFilter === category ? 'selected' : ''}`}
-            to={`?category=${category}`}
+            to={`?category=${category}&table=${tableNumber}`} // Preserve table number in the URL
           >
             {category}
           </Link>

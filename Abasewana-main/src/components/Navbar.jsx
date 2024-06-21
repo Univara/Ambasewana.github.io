@@ -8,15 +8,16 @@ import { FaTimes } from 'react-icons/fa';
 import './Styles/Navbar.css';
 import './Styles/Cart.css';
 import Cart from './Cart';
-// import { logo } from '../assets';
 
 const Navbar = () => {
   const cart = useRecoilValue(CartState);
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  // Initialize tableNumber state
+  const tableNumber = localStorage.getItem('tableNumber');
 
   const toggleNav = () => {
-    setIsOpen((prevstate) => !prevstate);
+    setIsOpen((prevState) => !prevState);
   };
 
   const toggleSidebar = () => {
@@ -26,7 +27,7 @@ const Navbar = () => {
   const closeSidebar = () => {
     setSidebarOpen(false); // Close sidebar function
   };
-
+  console.log(tableNumber);
   return (
     <header>
       <div className="nav-container container">
@@ -64,8 +65,10 @@ const Navbar = () => {
                     <FaTimes />
                   </button>
                 </div>
-                <Cart closeSidebar={closeSidebar} />{' '}
-                {/* Pass closeSidebar as prop */}
+                <Cart
+                  closeSidebar={closeSidebar}
+                  tableNumber={tableNumber} // Pass the tableNumber prop
+                />
               </aside>
             </div>
           </div>
