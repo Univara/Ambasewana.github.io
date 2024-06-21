@@ -16,13 +16,13 @@
 .filter-nav > a {
   text-decoration: none;
 }
-/* .item-type {
+.item-type {
   padding: 0.5rem 1rem;
-  background-color: #ffffff;
+  background-color: #ffffff08;
   color: black;
   border-radius: 5px;
   box-shadow: 1px 1px 2px #888888;
-} */
+}
 .selected {
   background-color: #ff9d2e;
 }
@@ -409,11 +409,11 @@ input#indian:checked ~ .switch-slider {
 .selected {
   font-weight: bold;
 }
-
 .category-scroll {
   overflow-x: auto; /* Enable horizontal scrolling */
   white-space: nowrap; /* Prevent category links from wrapping */
   padding: 1rem 2rem; /* Adjust padding as needed */
+  background-color: #f0f0f0; /* Background color */
   margin-top: 1rem; /* Space above the scrollable section */
   display: flex; /* Ensure children are in a flex container */
   gap: 1rem; /* Space between category items */
@@ -508,3 +508,4 @@ input#indian:checked ~ .switch-slider {
     font-size: 0.6em; /* Further adjust button font size for extra small screens */
   }
 }
+

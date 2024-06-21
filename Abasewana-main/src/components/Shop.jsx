@@ -287,7 +287,7 @@ function Shop() {
         {filterOptions[foodCategory].map((category) => (
           <Link
             key={category}
-            className={`${typeFilter === category ? "selected" : ""}`}
+            className={`item-type ${typeFilter === category ? "selected" : ""}`}
             to={`?category=${category}&table=${tableNumber}`} // Preserve table number in the URL
           >
             <div className="category-link">
