@@ -412,7 +412,7 @@ input#indian:checked ~ .switch-slider {
 .category-scroll {
   margin-bottom: 1.5rem;
   overflow-x: auto; /* Enable horizontal scrolling */
-  overflow-x: hidden;
+  scrollbar-width: none;
   white-space: nowrap; /* Prevent category links from wrapping */
   padding: 1rem 2rem; /* Adjust padding as needed */
   margin-top: 1rem; /* Space above the scrollable section */
