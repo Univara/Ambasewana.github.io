@@ -7,6 +7,7 @@ function PlacedOrders() {
   const location = useLocation();
   const { orderData } = location.state || {};
   const [currentOrderData, setCurrentOrderData] = useState(orderData);
+  const [isLoading, setIsLoading] = useState(false); // State to manage loading indicator
 
   const { lastMessage } = useWebSocket('ws://localhost:3000', {
     onOpen: () => console.log('Connected to WebSocket'),
@@ -20,6 +21,7 @@ function PlacedOrders() {
         currentOrderData &&
         currentOrderData.orderNumber === updatedOrder.orderNumber
       ) {
+        setIsLoading(false); // Turn off loading indicator
         setCurrentOrderData((prevData) => ({
           ...prevData,
           orderStatus: updatedOrder.orderStatus,
@@ -27,6 +29,12 @@ function PlacedOrders() {
       }
     }
   }, [lastMessage, currentOrderData]);
+
+  useEffect(() => {
+    if (currentOrderData && currentOrderData.orderStatus === 'pending') {
+      setIsLoading(true); // Turn on loading indicator if order status is pending
+    }
+  }, [currentOrderData]);
 
   if (!currentOrderData) {
     return <p>No order data available.</p>;
@@ -39,6 +47,7 @@ function PlacedOrders() {
       <p>Table Number: {currentOrderData.table}</p>
       <p>Order Number: {currentOrderData.orderNumber}</p>
       <p>Order Status: {currentOrderData.orderStatus}</p>
+
       <div className="order-items">
         {currentOrderData.items.map((item, index) => (
           <div key={index} className="order-item">
@@ -49,6 +58,23 @@ function PlacedOrders() {
           </div>
         ))}
       </div>
+
+      {currentOrderData.orderStatus === 'pending' && isLoading && (
+        <div className="loading-overlay">
+          <div className="loader"></div>
+          <div class="hourglassBackground">
+            <div class="hourglassContainer">
+              <div class="hourglassCurves"></div>
+              <div class="hourglassCapTop"></div>
+              <div class="hourglassGlassTop"></div>
+              <div class="hourglassSand"></div>
+              <div class="hourglassSandStream"></div>
+              <div class="hourglassCapBottom"></div>
+              <div class="hourglassGlass"></div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
