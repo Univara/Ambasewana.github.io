@@ -280,6 +280,25 @@ app.post('/api/orders', async (req, res) => {
   }
 });
 
+app.get("/api/getOrders", async (req, res) => {
+  try {
+    const ordersSnapshot = await db.collection("orders").get();
+    const orders = [];
+
+    ordersSnapshot.forEach((doc) => {
+      orders.push({
+        orderId: doc.id,
+        ...doc.data(),
+      });
+    });
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error("Error fetching orders: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // Endpoint to update order status
 app.put('/api/orders/:id', async (req, res) => {
   try {
