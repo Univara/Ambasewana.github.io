@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { atom, useRecoilState, selector } from "recoil";
-import { BsFillCartPlusFill, BsCartCheckFill } from "react-icons/bs";
-import Transition from "./Transition";
-import Notification from "./notification";
-import "./Styles/shop.css";
-import { burger1 } from "../assets";
-import Avatar from "react-avatar";
+import React, { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { atom, useRecoilState, selector } from 'recoil';
+import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
+import Transition from './Transition';
+import Notification from './notification';
+import './Styles/shop.css';
+import { burger1 } from '../assets';
+import Avatar from 'react-avatar';
 
-import soupImage from "../assets/pizza1.png";
-import dishes from "../assets/promo-3.png";
+import soupImage from '../assets/pizza1.png';
+import dishes from '../assets/promo-3.png';
 
 export const CartState = atom({
-  key: "CartState",
+  key: 'CartState',
   default: {},
 });
 
 export const cartStateWithRemove = selector({
-  key: "cartStateWithRemove",
+  key: 'cartStateWithRemove',
   get: ({ get }) => get(CartState),
   set: ({ set }, updatedCart) => {
     set(CartState, updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Save to localStorage
+    localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
   },
 });
 
@@ -45,30 +45,30 @@ function Shop() {
   const [visible, setVisible] = useState(10); // Controls the number of visible items
   const [searchParams] = useSearchParams();
   const [items, setItems] = useState([]); // State for the items
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [showTransition, setShowTransition] = useState(true);
   const [notification, setNotification] = useState({
-    message: "",
+    message: '',
     visible: false,
   });
-  const [foodCategory, setFoodCategory] = useState("chinese"); // Default category is Chinese
+  const [foodCategory, setFoodCategory] = useState('chinese'); // Default category is Chinese
   const [tableNumber, setTableNumber] = useState(null); // State to hold table number
 
   // Fetch table number from URL and store in localStorage
   useEffect(() => {
-    const tableFromURL = searchParams.get("table");
+    const tableFromURL = searchParams.get('table');
     if (tableFromURL) {
-      localStorage.setItem("tableNumber", tableFromURL);
+      localStorage.setItem('tableNumber', tableFromURL);
       setTableNumber(tableFromURL);
     } else {
-      localStorage.removeItem("tableNumber");
+      localStorage.removeItem('tableNumber');
       setTableNumber(null);
     }
   }, [searchParams]);
 
   // Retrieve table number from localStorage on component mount
   useEffect(() => {
-    const storedTableNumber = localStorage.getItem("tableNumber");
+    const storedTableNumber = localStorage.getItem('tableNumber');
     if (storedTableNumber) {
       setTableNumber(storedTableNumber);
     }
@@ -81,12 +81,12 @@ function Shop() {
           `http://localhost:3000/api/products/${foodCategory}`
         );
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error('Network response was not ok');
         }
         const data = await response.json();
         setItems(data);
       } catch (error) {
-        console.error("Fetch error:", error);
+        console.error('Fetch error:', error);
       }
     };
 
@@ -102,7 +102,7 @@ function Shop() {
     return () => clearTimeout(timeout);
   }, []);
 
-  const typeFilter = searchParams.get("category");
+  const typeFilter = searchParams.get('category');
   const displayedItems = items.filter((item) => {
     const matchesType = typeFilter ? item.category === typeFilter : true;
     const matchesSearch = item.name
@@ -136,7 +136,7 @@ function Shop() {
       <div className="item-info">
         <h2 className="name">{item.name}</h2>
         <p className="price">
-          Rs.{item.price}{" "}
+          Rs.{item.price}{' '}
           <span className="original-price">{item.originalPrice}</span>
         </p>
         <button
@@ -170,59 +170,59 @@ function Shop() {
 
   const filterOptions = {
     chinese: [
-      "Soup",
-      "Quick Dishes",
-      "Rice",
-      "Noodles",
-      "Pasta",
-      "Chopsuey(Rice)",
-      "Chopsuey(No Rice)",
-      "Devilled",
-      "Curry",
-      "Prawns",
-      "Fish",
-      "Chicken",
-      "Cuttle Fish",
+      'Soup',
+      'Quick Dishes',
+      'Rice',
+      'Noodles',
+      'Pasta',
+      'Chopsuey(Rice)',
+      'Chopsuey(No Rice)',
+      'Devilled',
+      'Curry',
+      'Prawns',
+      'Fish',
+      'Chicken',
+      'Cuttle Fish',
     ],
     indian: [
-      "Salad",
-      "Vegetable",
-      "Non Vegetable",
-      "Vegetable Pulow",
-      "Chicken Kebab",
-      "Vegetable Kebab",
-      "Roti Naan",
-      "Set Menu",
-      "Kottu Naan",
+      'Salad',
+      'Vegetable',
+      'Non Vegetable',
+      'Vegetable Pulow',
+      'Chicken Kebab',
+      'Vegetable Kebab',
+      'Roti Naan',
+      'Set Menu',
+      'Kottu Naan',
     ],
   };
 
   const categoryImages = {
     //chinese
     Soup: soupImage,
-    "Quick Dishes": soupImage,
+    'Quick Dishes': soupImage,
     Rice: soupImage,
     Noodles: soupImage,
     Pasta: soupImage,
-    "Chopsuey(Rice)": soupImage,
-    "Chopsuey(No Rice)": soupImage,
+    'Chopsuey(Rice)': soupImage,
+    'Chopsuey(No Rice)': soupImage,
     Devilled: soupImage,
     Curry: soupImage,
     Prawns: soupImage,
     Fish: soupImage,
     Chicken: soupImage,
-    "Cuttle Fish": soupImage,
+    'Cuttle Fish': soupImage,
 
     //indian
     Salad: dishes,
     Vegetable: dishes,
-    "Non Vegetable": dishes,
-    "Vegetable Pulow": dishes,
-    "Chicken Kebab": dishes,
-    "Vegetable Kebab": dishes,
-    "Roti Naan": dishes,
-    "Set Menu": dishes,
-    "Kottu Naan": dishes,
+    'Non Vegetable': dishes,
+    'Vegetable Pulow': dishes,
+    'Chicken Kebab': dishes,
+    'Vegetable Kebab': dishes,
+    'Roti Naan': dishes,
+    'Set Menu': dishes,
+    'Kottu Naan': dishes,
   };
 
   return (
@@ -235,7 +235,7 @@ function Shop() {
 
       <div className="header-container">
         <h1>Explore Our Menu</h1>
-        <h2>Table Number: {tableNumber}</h2>
+
         {/* Display table number */}
         <div className="food-category-switch switch-container">
           <div className="switch">
@@ -243,8 +243,8 @@ function Shop() {
               type="radio"
               id="chinese"
               value="chinese"
-              checked={foodCategory === "chinese"}
-              onChange={() => setFoodCategory("chinese")}
+              checked={foodCategory === 'chinese'}
+              onChange={() => setFoodCategory('chinese')}
             />
             <label htmlFor="chinese" className="switch-label">
               Chinese
@@ -255,8 +255,8 @@ function Shop() {
               type="radio"
               id="indian"
               value="indian"
-              checked={foodCategory === "indian"}
-              onChange={() => setFoodCategory("indian")}
+              checked={foodCategory === 'indian'}
+              onChange={() => setFoodCategory('indian')}
             />
             <label htmlFor="indian" className="switch-label">
               Indian
@@ -279,7 +279,7 @@ function Shop() {
       {/* New horizontal scrollable section */}
       <div className="category-scroll">
         <Link
-          className={`item-type ${!typeFilter ? "selected" : ""}`}
+          className={`item-type ${!typeFilter ? 'selected' : ''}`}
           to={`?table=${tableNumber}`}
         >
           All
@@ -288,7 +288,7 @@ function Shop() {
         {filterOptions[foodCategory].map((category) => (
           <Link
             key={category}
-            className={`item-type ${typeFilter === category ? "selected" : ""}`}
+            className={`item-type ${typeFilter === category ? 'selected' : ''}`}
             to={`?category=${category}&table=${tableNumber}`} // Preserve table number in the URL
           >
             <div className="category-link">

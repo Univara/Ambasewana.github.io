@@ -1,10 +1,9 @@
 .orders-container {
   margin-top: 5.5rem;
-  background-color: #f9f6f0;
   padding: 2rem;
+  background-color: #f9f6f0;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #f9f9f9;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -69,6 +68,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  border-bottom: 1px solid #ced4da; /* Added border bottom for separation */
+  padding-bottom: 10px; /* Added padding for separation */
 }
 
 .order-info-group {
@@ -83,6 +84,7 @@
 .order-actions {
   display: flex;
   align-items: center;
+  margin-top: 10px; /* Added margin top for separation */
 }
 
 .action-button {
@@ -93,6 +95,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  margin-left: 10px; /* Added margin left for separation */
 }
 
 .action-button:hover {
@@ -116,14 +119,6 @@
   background-color: #f8f9fa;
   border: 1px solid #ced4da;
   border-radius: 8px;
-}
-
-.item-image {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  margin-right: 15px;
-  border-radius: 4px;
 }
 
 .item-details {

@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "./Styles/OrderHistory.css";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './Styles/OrderHistory.css';
+import { Link } from 'react-router-dom';
+import Loading from './Loading';
 
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
@@ -12,7 +13,7 @@ const OrderHistory = () => {
 
   useEffect(() => {
     fetchOrderHistory();
-    
+
     // Set up event listener for visibility change
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
@@ -32,19 +33,19 @@ const OrderHistory = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:3000/api/getOrderHistory"
+        'http://localhost:3000/api/getOrderHistory'
       );
       setOrderHistory(response.data);
       setLoading(false);
     } catch (error) {
-      setError("Error fetching order history. Please try again later.");
+      setError('Error fetching order history. Please try again later.');
       setLoading(false);
-      console.error("Error fetching order history:", error);
+      console.error('Error fetching order history:', error);
     }
   };
 
   if (loading) {
-    return <div className="order-history-container">Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {
