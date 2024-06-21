@@ -1,0 +1,39 @@
+/* OrderList.css */
+form {
+  margin-top: 8rem;
+}
+.order-list {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 20px 0;
+  margin-top: 8rem;
+}
+
+.order-list h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.order-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.order-list li {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.order-list p {
+  margin: 5px 0;
+}
+
+.order-list ul li {
+  margin-top: 10px;
+  padding: 0;
+}

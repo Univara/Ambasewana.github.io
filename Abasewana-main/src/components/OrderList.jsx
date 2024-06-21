@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import OrderFilterForm from './OrderFilterForm';
-
+import './Styles/OrderList.css'
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
@@ -17,7 +17,7 @@ const OrderList = () => {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/getOrders?${query}`
+        `http://localhost:3000/api/OrdersStatus?${query}`
       );
       const data = await response.json();
       setOrders(data);
@@ -27,7 +27,7 @@ const OrderList = () => {
   };
 
   return (
-    <div>
+    <div className="order-list">
       <OrderFilterForm onFilter={fetchOrders} />
       <h2>Orders</h2>
       {orders.length === 0 ? (

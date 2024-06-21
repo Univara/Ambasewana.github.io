@@ -35,6 +35,15 @@
   padding-inline: 2rem;
   gap: 1rem;
 }
+.item-card.item-pic {
+  transition: transform 0.3s ease-in-out;
+}
+.item-card:hover {
+  transform: scale(1.05);
+}
+.item-pic:hover {
+  transform: scale(1.05);
+}
 .item-card {
   background-color: rgb(255, 255, 255);
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.2);
@@ -355,7 +364,8 @@ input#indian:checked ~ .switch-slider {
     font-size: 12px;
   }
 
-  .switch-label:first-of-type, .switch-label:last-of-type {
+  .switch-label:first-of-type,
+  .switch-label:last-of-type {
     border-radius: 10px 10px 10px 10px;
   }
 

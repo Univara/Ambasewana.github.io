@@ -368,7 +368,7 @@ app.get('/api/getOrderHistory', async (req, res) => {
   }
 });
 // getuserOrderStatus
-app.get('/api/getOrders', async (req, res) => {
+app.get('/api/OrdersStatus', async (req, res) => {
   const { customerName, table } = req.query;
 
   try {

@@ -37,6 +37,11 @@ export const navLinks = [
     title: 'Menu',
     link: './shop',
   },
+  {
+    id: 'staff',
+    title: 'Staff',
+    link: './staff',
+  },
 ];
 
 export const catagory = [
