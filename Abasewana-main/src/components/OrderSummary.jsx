@@ -110,7 +110,7 @@ function OrderDetails() {
               type="text"
               value={tableNumber}
               onChange={(e) => setTableNumber(e.target.value)}
-              required
+              readOnly
             />
           </div>
           <button onClick={handleSubmit} className="button">
@@ -121,7 +121,9 @@ function OrderDetails() {
         <>
           <h2>Order Details</h2>
           <p>User Name: {userName}</p>
+          <p>Please Don't Leave or Change Your Table</p>
           <p>Table Number: {tableNumber}</p>
+
           <div className="cart-list-container">
             {Object.values(cart).map((item) => (
               <div key={item.id} className="cart-list">
