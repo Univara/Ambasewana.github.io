@@ -4,7 +4,7 @@
 }
 .empty-cart{
     padding: 1rem;
-    color: rgb(185, 0, 0);
+    color: rgb(0, 119, 68);
     font-family: var(--font7);
 }
 .empty-cart-gif{
@@ -111,11 +111,11 @@
     border-color: transparent;
     transition: var(--transition);
     cursor: pointer;
-    color: #ff8d29;
+    color: rgb(0, 119, 68);
     margin-top: 0.2rem;
 }
 .close-btn:hover {
-    color: #cf8443;
+    color: rgb(0, 119, 68);
 }
 .sidebar::-webkit-scrollbar{
     display: none;
@@ -183,7 +183,7 @@
     overflow: hidden;
     transition-duration: .3s;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    background-color: rgb(255, 157, 46);
+    background-color: rgb(160, 19, 27);
 }
 
 .sign {

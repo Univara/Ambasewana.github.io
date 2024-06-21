@@ -28,7 +28,7 @@
 .blog-icons{
     display: flex;
     align-items: center;
-    color: #ff8d29;
+    color: rgb(0, 119, 68);
     justify-content: center;
     gap: 5px;
 }
