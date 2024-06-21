@@ -2,74 +2,55 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./Styles/OrderDisplay.css";
+import "./Styles/OrderHistory.css";
 import { Link } from "react-router-dom";
 
-const OrderDisplay = ({ notifyOrderDeleted }) => {
-  const [orders, setOrders] = useState([]);
+const OrderHistory = () => {
+  const [orderHistory, setOrderHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchOrders();
+    fetchOrderHistory();
   }, []);
 
-  const fetchOrders = async () => {
+  const fetchOrderHistory = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/getOrders");
-      setOrders(response.data);
-      setLoading(false);
-    } catch (error) {
-      setError("Error fetching orders. Please try again later.");
-      setLoading(false);
-      console.error("Error fetching orders:", error);
-    }
-  };
-
-  const handleDeleteOrder = async (orderId) => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/deleteOrder/${orderId}`
+      const response = await axios.get(
+        "http://localhost:3000/api/getOrderHistory"
       );
-      const { message, historyId } = response.data;
-
-      // Update UI or notify user about successful deletion
-      toast.success(message);
-
-      // Optionally, you can fetch updated orders after successful deletion
-      fetchOrders(); // Assuming fetchOrders updates the orders state
+      setOrderHistory(response.data);
+      setLoading(false);
     } catch (error) {
-      console.error("Error deleting order:", error);
-      toast.error("Error deleting order. Please try again.");
+      setError("Error fetching order history. Please try again later.");
+      setLoading(false);
+      console.error("Error fetching order history:", error);
     }
   };
 
   if (loading) {
-    return <div className="orders-container">Loading...</div>;
+    return <div className="order-history-container">Loading...</div>;
   }
 
   if (error) {
-    return <div className="orders-container">{error}</div>;
+    return <div className="order-history-container">{error}</div>;
   }
 
   return (
-    <div className="orders-container">
+    <div className="order-history-container">
       <ToastContainer />
-      <Link to="/OrderHistory">
-        <button>Go to Order History</button>
+      <Link to="/">
+        <button>Go to Orders</button>
       </Link>
-      <h1>Orders</h1>
+      <h1>Order History</h1>
       <ul>
-        {orders.map((order) => (
-          <li key={order.orderId} className="order-item">
+        {orderHistory.map((order) => (
+          <li key={order.id} className="order-item">
             <div>
-              <p>Order ID: {order.orderId}</p>
+              <p>Order ID: {order.id}</p>
               <p>Date Time: {new Date(order.dateTime).toLocaleString()}</p>
               <p>Order Number: {order.orderNumber}</p>
               <p>Order Status: {order.orderStatus}</p>
-              <button onClick={() => handleDeleteOrder(order.orderId)}>
-                Delete
-              </button>
             </div>
             <ul className="items-list">
               {order.items &&
@@ -99,4 +80,4 @@ const OrderDisplay = ({ notifyOrderDeleted }) => {
   );
 };
 
-export default OrderDisplay;
+export default OrderHistory;

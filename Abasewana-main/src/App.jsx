@@ -8,7 +8,7 @@ import { RecoilRoot } from 'recoil';
 import { AuthProvider } from './config/Context';
 
 import RouteTracker from './RouterTracker';
-
+import OrderHistory from './components/OrderHistory.jsx';
 import OrderDisplay from './components/OrderDisplay.jsx';
 import Cart from './components/Cart.jsx';
 
@@ -40,6 +40,7 @@ function App() {
                 <Route path="/order-details" element={<OrderDetails />} />
                 <Route path="/placed-orders" element={<PlacedOrders />} />
                 <Route path="OrderDisplay" element={<OrderDisplay />} />
+                <Route path="OrderHistory" element={<OrderHistory />} />
               </Route>
             </Routes>
             <RouteTracker />

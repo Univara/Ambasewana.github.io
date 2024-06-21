@@ -298,6 +298,37 @@ app.get("/api/getOrders", async (req, res) => {
   }
 });
 
+// DELETE /api/deleteOrder/:orderId - Delete order by orderId and move to history
+app.delete("/api/deleteOrder/:orderId", async (req, res) => {
+  const { orderId } = req.params;
+
+  try {
+    // Retrieve the order data before deleting
+    const orderDoc = await db.collection("orders").doc(orderId).get();
+    if (!orderDoc.exists) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    const orderData = orderDoc.data();
+
+    // Delete the order from the current orders collection
+    await db.collection("orders").doc(orderId).delete();
+
+    // Add the order to the order history collection
+    const historyRef = await db.collection("orderHistory").add(orderData);
+
+    res
+      .status(200)
+      .json({
+        message: "Order deleted and moved to history successfully",
+        historyId: historyRef.id,
+      });
+  } catch (error) {
+    console.error("Error deleting order and moving to history: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // Endpoint to update order status
 app.put("/api/orders/:id", async (req, res) => {
   try {
@@ -331,6 +362,21 @@ app.put("/api/orders/:id", async (req, res) => {
     res.status(200).json({ message: "Order status updated successfully" });
   } catch (error) {
     console.error("Error updating order status: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/api/getOrderHistory", async (req, res) => {
+  try {
+    const orderHistorySnapshot = await db.collection("orderHistory").get();
+    const orderHistory = orderHistorySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    res.status(200).json(orderHistory);
+  } catch (error) {
+    console.error("Error fetching order history: ", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
