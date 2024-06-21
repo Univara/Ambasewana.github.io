@@ -2,8 +2,6 @@
   margin-top: 5.5rem;
   padding: 2rem;
   background-color: #f9f6f0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -48,6 +46,7 @@
   list-style-type: none;
   padding: 0;
 }
+
 
 .order-item {
   margin-bottom: 30px;
@@ -108,17 +107,20 @@
 }
 
 .items-list {
+  display: flex;
   list-style-type: none;
   padding: 0;
+  gap: 10px;
+  overflow-x: auto;
 }
 
 .item {
-  display: flex;
-  margin-bottom: 15px;
+  display: grid;
   padding: 10px;
   background-color: #f8f9fa;
   border: 1px solid #ced4da;
   border-radius: 8px;
+  gap: 10px;
 }
 
 .item-details {
@@ -128,6 +130,7 @@
 .item-info {
   margin: 5px 0;
   font-size: 14px;
+  display: table-column;
 }
 
 .customer-details {

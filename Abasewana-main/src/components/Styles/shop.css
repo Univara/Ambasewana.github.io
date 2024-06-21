@@ -531,11 +531,7 @@ input#indian:checked ~ .switch-slider {
   gap: 10px;
 }
 
-.banner-lg { height: 430px; }
-
 .banner-sm { height: 200px; }
-
-.banner-md { height: 240px; }
 
 .banner-card {
   position: relative;
