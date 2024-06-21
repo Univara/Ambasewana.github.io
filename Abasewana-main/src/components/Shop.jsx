@@ -247,7 +247,10 @@ function Shop() {
       </div>
 
       <nav className="filter-nav">
-        <Link className={`item-type ${!typeFilter ? 'selected' : ''}`} to=".">
+        <Link
+          className={`item-type ${!typeFilter ? 'selected' : ''}`}
+          to={`?table=${tableNumber}`}
+        >
           All
         </Link>
         {filterOptions[foodCategory].map((category) => (
