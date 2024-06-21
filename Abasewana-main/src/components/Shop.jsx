@@ -280,7 +280,10 @@ function Shop() {
 
       {/* New horizontal scrollable section */}
       <div className="category-scroll">
-        <Link className={`item-type ${!typeFilter ? "selected" : ""}`} to=".">
+        <Link
+          className={`item-type ${!typeFilter ? "selected" : ""}`}
+          to={`?table=${tableNumber}`}
+        >
           All
         </Link>
 

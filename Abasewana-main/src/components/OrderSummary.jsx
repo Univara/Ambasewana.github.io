@@ -48,8 +48,17 @@ function OrderDetails() {
 
   const total = calculateTotalPrice();
 
+  // Function to generate a unique order number
+  const generateOrderNumber = () => {
+    const timestamp = new Date().getTime();
+    const randomComponent = Math.floor(Math.random() * 1000);
+    return `ORD-${timestamp}-${randomComponent}`;
+  };
+
   const handlePlaceOrder = async () => {
     try {
+      const orderNumber = generateOrderNumber();
+
       const orderItems = Object.values(cart).map((item) => ({
         itemName: item.name,
         image: burger1, // Replace with the actual image URL or logic to get image URL
@@ -60,7 +69,7 @@ function OrderDetails() {
       const orderData = {
         customerName: userName,
         table: tableNumber,
-        orderNumber: 'your_order_number_here', // Generate/order number as needed
+        orderNumber: orderNumber, // Use the generated order number
         orderStatus: 'pending', // Example status, adjust as per your app logic
         items: orderItems,
       };
@@ -104,6 +113,7 @@ function OrderDetails() {
             />
           </div>
           <div className="input-group">
+            <p>Please Don't Leave or Change Your Table</p>
             <label htmlFor="tableNumber">Table Number:</label>
             <input
               id="tableNumber"
@@ -121,7 +131,7 @@ function OrderDetails() {
         <>
           <h2>Order Details</h2>
           <p>User Name: {userName}</p>
-          <p>Please Don't Leave or Change Your Table</p>
+
           <p>Table Number: {tableNumber}</p>
 
           <div className="cart-list-container">
