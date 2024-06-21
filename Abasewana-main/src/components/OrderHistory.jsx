@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,10 +12,25 @@ const OrderHistory = () => {
 
   useEffect(() => {
     fetchOrderHistory();
+    
+    // Set up event listener for visibility change
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        fetchOrderHistory();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   const fetchOrderHistory = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         "http://localhost:3000/api/getOrderHistory"
       );
@@ -39,7 +54,7 @@ const OrderHistory = () => {
   return (
     <div className="order-history-container">
       <ToastContainer />
-      <Link to="/">
+      <Link to="/OrderDisplay">
         <button>Go to Orders</button>
       </Link>
       <h1>Order History</h1>

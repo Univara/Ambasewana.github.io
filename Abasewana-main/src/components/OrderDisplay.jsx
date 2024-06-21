@@ -5,17 +5,32 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Styles/OrderDisplay.css";
 import { Link } from "react-router-dom";
 
-const OrderDisplay = ({ notifyOrderDeleted }) => {
+const OrderDisplay = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchOrders();
+
+    // Set up event listener for visibility change
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        fetchOrders();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   const fetchOrders = async () => {
     try {
+      setLoading(true);
       const response = await axios.get("http://localhost:3000/api/getOrders");
       setOrders(response.data);
       setLoading(false);
@@ -31,9 +46,10 @@ const OrderDisplay = ({ notifyOrderDeleted }) => {
       const response = await axios.delete(
         `http://localhost:3000/api/deleteOrder/${orderId}`
       );
-      const { message, historyId } = response.data;
+      const { message } = response.data;
 
-      // Update UI or notify user about successful deletion
+      // Notify user about successful deletion
+      console.log("Success message:", message); // Debugging line
       toast.success(message);
 
       // Optionally, you can fetch updated orders after successful deletion
@@ -54,6 +70,7 @@ const OrderDisplay = ({ notifyOrderDeleted }) => {
 
   return (
     <div className="orders-container">
+      {/* ToastContainer is necessary for displaying toast notifications */}
       <ToastContainer />
       <Link to="/OrderHistory">
         <button>Go to Order History</button>
