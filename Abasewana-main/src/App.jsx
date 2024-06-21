@@ -16,6 +16,8 @@ import OrderDetails from './components/OrderSummary.jsx';
 import PlacedOrders from './components/PlacedOrders.jsx';
 import QRCodeGenerator from './components/QRCodeGenerator.jsx';
 import Products from './components/IndianProducts.jsx';
+import OrderList from './components/OrderList.jsx';
+import OrderFilterForm from './components/OrderFilterForm.jsx';
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
                 <Route path="/placed-orders" element={<PlacedOrders />} />
                 <Route path="OrderDisplay" element={<OrderDisplay />} />
                 <Route path="OrderHistory" element={<OrderHistory />} />
+                <Route path="Ordered" element={<OrderList />} />
+                <Route path="Ordered-s" element={<OrderFilterForm />} />
               </Route>
             </Routes>
             <RouteTracker />
