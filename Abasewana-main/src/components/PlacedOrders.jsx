@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useWebSocket from 'react-use-websocket';
 import './Styles/PlacedOrders.css';
 
@@ -75,6 +75,9 @@ function PlacedOrders() {
           </div>
         </div>
       )}
+      <Link to="/status">
+        <button className={`search-button`}>See Your Order Status</button>
+      </Link>
     </div>
   );
 }
