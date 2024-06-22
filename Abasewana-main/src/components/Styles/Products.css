@@ -1,3 +1,4 @@
+/* Base styles */
 .products-container {
   padding: 20px;
   margin-top: 8rem;
@@ -5,7 +6,6 @@
 
 h1 {
   text-align: center;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .switch-btn,
@@ -89,4 +89,37 @@ h1 {
 
 .product-item p {
   margin: 5px 0;
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+  .products-container {
+    margin-top: 4rem;
+    padding: 10px;
+  }
+
+  .switch-btn,
+  .add-btn,
+  .delete-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .search-input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .products-table th,
+  .products-table td {
+    padding: 10px;
+  }
+
+  .product-item {
+    padding: 10px;
+  }
+
+  .product-item h2 {
+    font-size: 18px;
+  }
 }
