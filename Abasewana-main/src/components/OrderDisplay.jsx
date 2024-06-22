@@ -122,6 +122,7 @@ const OrderDisplay = () => {
                 >
                   <option value="Pending">Pending</option>
                   <option value="Preparing">Preparing</option>
+                  <option value="Completed">Completed</option>
                 </select>
               </div>
 
