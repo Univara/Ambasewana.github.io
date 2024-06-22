@@ -63,7 +63,7 @@
   display: block;
   max-width: 100%;
   width: 200px;
-  height: 250px;
+  height: 200px;
   object-fit: contain;
 }
 .item-discount {
@@ -99,7 +99,6 @@
 .price {
   color: black;
   font-size: 1.2rem; /* Adjust font size */
-  font-weight: bold;
 }
 
 .original-price {

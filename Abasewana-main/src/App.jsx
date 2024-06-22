@@ -12,7 +12,7 @@ import Cart from './components/Cart.jsx';
 import OrderDetails from './components/OrderSummary.jsx';
 import PlacedOrders from './components/PlacedOrders.jsx';
 import QRCodeGenerator from './components/QRCodeGenerator.jsx';
-import Products from './components/IndianProducts.jsx';
+import Products from './components/Products.jsx';
 import OrderList from './components/OrderList.jsx';
 import OrderFilterForm from './components/OrderFilterForm.jsx';
 import Staff from './components/Staff.jsx';

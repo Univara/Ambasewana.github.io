@@ -8,7 +8,7 @@ function Staff() {
       <h2>DASHBOARD</h2>
       <div className="card-container">
         <br />
-        <Link to="">
+        <Link to="/qrgenerator">
           <div class="card wallet">
             <div class="overlay"></div>
             <div class="circle">
@@ -72,7 +72,7 @@ function Staff() {
             <p>Orders</p>
           </div>
         </Link>
-        <Link to="">
+        <Link to="/products">
           <div class="card wallet">
             <div class="overlay"></div>
             <div class="circle">
