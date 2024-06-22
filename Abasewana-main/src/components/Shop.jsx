@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { atom, useRecoilState, selector } from "recoil";
-import { BsFillCartPlusFill, BsCartCheckFill } from "react-icons/bs";
-import Transition from "./Transition";
-import Notification from "./notification";
-import "./Styles/shop.css";
-import { burger1 } from "../assets";
-import Avatar from "react-avatar";
-import { banner3} from '../assets'
+import React, { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { atom, useRecoilState, selector } from 'recoil';
+import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
+import Transition from './Transition';
+import Notification from './notification';
+import './Styles/shop.css';
+import { burger1 } from '../assets';
+import Avatar from 'react-avatar';
+import { banner3 } from '../assets';
 
 import soupImage from '../assets/pizza1.png';
 import dishes from '../assets/promo-3.png';
@@ -176,14 +176,13 @@ function Shop() {
       'Rice',
       'Noodles',
       'Pasta',
-      'Chopsuey(Rice)',
-      'Chopsuey(No Rice)',
+      'Chopsuey',
+
       'Devilled',
       'Curry',
       'Prawns',
       'Fish',
       'Chicken',
-      'Cuttle Fish',
     ],
     indian: [
       'Salad',
@@ -205,14 +204,13 @@ function Shop() {
     Rice: soupImage,
     Noodles: soupImage,
     Pasta: soupImage,
-    'Chopsuey(Rice)': soupImage,
-    'Chopsuey(No Rice)': soupImage,
+    Chopsuey: soupImage,
+
     Devilled: soupImage,
     Curry: soupImage,
     Prawns: soupImage,
     Fish: soupImage,
     Chicken: soupImage,
-    'Cuttle Fish': soupImage,
 
     //indian
     Salad: dishes,

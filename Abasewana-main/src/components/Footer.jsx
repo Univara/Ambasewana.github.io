@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom"; // Make sure Link is imported if you're using it
+import { Link } from 'react-router-dom'; // Make sure Link is imported if you're using it
 import {
   FaFacebookSquare,
   FaInstagram,
   FaPinterest,
   FaTwitter,
-} from "react-icons/fa";
-import logo from "../assets/logo.png";
-import footer from "../assets/logo.png"; // Assuming you have a footer image to display
+} from 'react-icons/fa';
+import logo from '../assets/logo.png';
+import footer from '../assets/logo.png'; // Assuming you have a footer image to display
 
-import "./Styles/Footer.css";
+import './Styles/Footer.css';
 
 function Footer() {
   return (
@@ -20,12 +20,12 @@ function Footer() {
               src={logo}
               alt="logo"
               className="logo"
-              style={{ width: "100px", height: "auto" }} // Adjust width as needed
+              style={{ width: '100px', height: 'auto' }} // Adjust width as needed
             />
           </Link>
           <p>
-            Financial experts support or help you to find out which way you can
-            raise your funds more.
+            Welcome to Ambasewana, where the rich, aromatic flavors of India
+            meet the bold, savory tastes of China.
           </p>
           <div className="icons">
             <h2>
