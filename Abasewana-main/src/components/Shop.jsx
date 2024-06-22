@@ -333,7 +333,7 @@ function Shop() {
               <Avatar
                 className="category-avatar"
                 src={categoryImages[category]} // Set the image source for the avatar
-                size="50"
+                size="60"
                 round
               />
               <span className="category-name">{category}</span>

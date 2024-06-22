@@ -210,7 +210,7 @@
 .search-container {
   display: flex;
   justify-content: center;
-  margin: 20px;
+  margin: 38px;
 }
 
 .input-wrapper {
@@ -505,7 +505,7 @@ input#indian:checked ~ .switch-slider {
   }
 
   .category-name {
-    font-size: 0.7em; /* Further adjust font size for extra small screens */
+    font-size: 0.9em; /* Further adjust font size for extra small screens */
   }
 
   .category-button {

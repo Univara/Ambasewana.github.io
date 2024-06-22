@@ -45,8 +45,8 @@
   border: none;
   cursor: pointer;
   position: absolute;
-  right: 1px;
-  top: 30%;
+  right: 15px;
+  top: 59%;
   transform: translateY(-50%);
   color: #fa0505;
 }
