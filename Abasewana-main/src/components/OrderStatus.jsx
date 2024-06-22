@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Styles/OrderStatus.css"; // Import CSS file for styling
 import Loading from "./Loading"; // Import the Loading component
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const OrderDisplay = () => {
   const [orderStatus, setOrderStatus] = useState([]);
@@ -67,13 +69,23 @@ const OrderDisplay = () => {
       <ToastContainer />
       <h1 className="orders-heading">Order Status</h1>
       <div className="search-container">
-        <input
-          type="text"
-          value={tableNo}
-          onChange={handleSearchChange}
-          placeholder="Search by Table No"
-          className="search-input"
-        />
+        <div className="search-input-container">
+          <input
+            type="text"
+            value={tableNo}
+            onChange={handleSearchChange}
+            placeholder="Search by Table No"
+            className="search-input"
+          />
+          {tableNo && (
+            <button
+              onClick={handleCancelClick}
+              className="clear-button"
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          )}
+        </div>
         <button
           onClick={handleSearchClick}
           className={`search-button ${loading ? "loading" : ""}`}
@@ -81,14 +93,6 @@ const OrderDisplay = () => {
         >
           {loading ? "Searching..." : "Search"}
         </button>
-        {tableNo && (
-          <button
-            onClick={handleCancelClick}
-            className="cancel-button"
-          >
-            Clear
-          </button>
-        )}
       </div>
       {error && <div className="error-message">{error}</div>}
       <div className="orders-list">
