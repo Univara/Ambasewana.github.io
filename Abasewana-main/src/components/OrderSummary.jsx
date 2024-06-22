@@ -36,9 +36,12 @@ function OrderDetails() {
   };
 
   const calculateSubtotal = (item) => {
-    return item.price * item.quantity;
+    const price =
+      parseInt(tableNumber) >= 30 && parseInt(tableNumber) <= 35
+        ? item.upper_price
+        : item.ground_price;
+    return price * item.quantity;
   };
-
   const calculateTotalPrice = () => {
     return Object.values(cart).reduce(
       (total, item) => total + calculateSubtotal(item),
@@ -47,7 +50,12 @@ function OrderDetails() {
   };
 
   const total = calculateTotalPrice();
-
+  const getPriceDisplay = (item) => {
+    const table = parseInt(tableNumber);
+    const price =
+      table >= 30 && table <= 35 ? item.upper_price : item.ground_price;
+    return `Rs.${price}`;
+  };
   // Function to generate a unique order number
   const generateOrderNumber = () => {
     const timestamp = new Date().getTime();
@@ -62,7 +70,7 @@ function OrderDetails() {
       const orderItems = Object.values(cart).map((item) => ({
         itemName: item.name,
         image: burger1, // Replace with the actual image URL or logic to get image URL
-        price: item.price,
+        price: getPriceDisplay(item),
         quantity: item.quantity,
       }));
 
@@ -145,7 +153,7 @@ function OrderDetails() {
                   />
                   <div className="cart-item-info">
                     <p className="cart-item-name">{item.name}</p>
-                    <p>Price: Rs.{item.price}</p>
+                    <p>Price: {getPriceDisplay(item)}</p>
                     <p>Quantity: {item.quantity}</p>
                   </div>
                 </div>

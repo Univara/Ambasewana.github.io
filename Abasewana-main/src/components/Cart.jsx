@@ -47,7 +47,11 @@ function Cart({ closeSidebar, tableNumber }) {
   };
 
   const calculateSubtotal = (item) => {
-    return item.price * item.quantity;
+    const price =
+      parseInt(tableNumber) >= 30 && parseInt(tableNumber) <= 35
+        ? item.upper_price
+        : item.ground_price;
+    return price * item.quantity;
   };
 
   const calculateTotalPrice = () => {
@@ -58,7 +62,12 @@ function Cart({ closeSidebar, tableNumber }) {
   };
 
   const total = calculateTotalPrice();
-
+  const getPriceDisplay = (item) => {
+    const table = parseInt(tableNumber);
+    const price =
+      table >= 30 && table <= 35 ? item.upper_price : item.ground_price;
+    return `Rs.${price}`;
+  };
   const handleCheckout = () => {
     // Navigate to order details page
     navigate('/order-details', {
@@ -91,7 +100,7 @@ function Cart({ closeSidebar, tableNumber }) {
               <img src={burger1} width="120px" alt={item.name} />
               <div className="cart-item-info">
                 <p className="cart-item-name">{item.name}</p>
-                <p>Price: Rs.{item.price}</p>
+                <p>Price: {getPriceDisplay(item)}</p>
                 <button
                   className="Btn"
                   onClick={() => handleRemoveItem(item.id)}
