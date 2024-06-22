@@ -135,7 +135,7 @@ function Shop() {
         <img className="item-pic" src={burger1} alt={item.name} />
       </div>
       <div className="item-info">
-        <h2 className="name">{item.name}</h2>
+        <p className="item-name ">{item.name}</p>
         <p className="price">
           Rs.{item.price}{' '}
           <span className="original-price">{item.originalPrice}</span>

@@ -16,6 +16,12 @@
 .filter-nav > a {
   text-decoration: none;
 }
+.item-name {
+  font-size: 1.2rem; /* Adjust font size */
+  font-weight: bold; /* Make the name bold */
+  color: #333; /* Set text color */
+  margin-bottom: 5px; /* Add space below the name */
+}
 .item-type {
   padding: 0.5rem 1rem;
   background-color: #ffffff08;
@@ -85,25 +91,21 @@
   z-index: 1;
 }
 .item-info {
-  display: flex;
+  display: block;
   flex-direction: column;
-  align-items: start;
-  gap: 5px;
-  font-family: var(--font8);
-  letter-spacing: 1px;
+  gap: 2px;
 }
 
 .price {
   color: black;
-  padding: 0.4rem;
-  font-size: 20px;
-  font-weight: 500;
-  font-family: var(--font1);
+  font-size: 1.2rem; /* Adjust font size */
+  font-weight: bold;
 }
+
 .original-price {
   text-decoration: line-through;
-  font-size: 14px;
-  color: rgb(0, 119, 68);
+  color: #666; /* Adjust color */
+  font-size: 0.9rem; /* Adjust font size */
 }
 
 .shop-button {
@@ -301,7 +303,7 @@
 }
 
 .switch input:checked + .switch-label {
-  background-color:rgb(0, 119, 68);
+  background-color: rgb(0, 119, 68);
   color: white;
 }
 
@@ -517,21 +519,21 @@ input#indian:checked ~ .switch-slider {
   }
 }
 
-
-\\details
-
-
-.deals-container{
-  padding: .4rem;
+\\details .deals-container {
+  padding: 0.4rem;
 }
-.banner { color: white; }
+.banner {
+  color: white;
+}
 
 .banner-list {
   display: grid;
   gap: 10px;
 }
 
-.banner-sm { height: 200px; }
+.banner-sm {
+  height: 200px;
+}
 
 .banner-card {
   position: relative;
@@ -541,7 +543,7 @@ input#indian:checked ~ .switch-slider {
 }
 
 .banner-card .deal-img {
-  background-color:  hsl(0, 0%, 87%);
+  background-color: hsl(0, 0%, 87%);
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -549,7 +551,9 @@ input#indian:checked ~ .switch-slider {
   transition: 0.5s ease;
 }
 
-.banner-card:is(:hover, :focus-within) .deal-img { transform: scale(1.05); }
+.banner-card:is(:hover, :focus-within) .deal-img {
+  transform: scale(1.05);
+}
 
 .banner-item-content {
   position: absolute;
@@ -560,26 +564,26 @@ input#indian:checked ~ .switch-slider {
   color: #fff;
 }
 
-.banner-md .banner-item-content { 
-  left: 35%;   
+.banner-md .banner-item-content {
+  left: 35%;
 }
 
 .banner-subtitle,
 .banner-title {
-  font-family:var(--font6);
+  font-family: var(--font6);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.5px;
 }
 
 .banner-lg .banner-subtitle {
-  font-size:  2.2rem;
+  font-size: 2.2rem;
   margin-block-end: 10px;
   font-family: var(--font8);
-  }
+}
 
 .banner-lg .banner-title {
-  font-size:  2.2rem;
+  font-size: 2.2rem;
   max-width: 16ch;
 }
 
@@ -588,28 +592,31 @@ input#indian:checked ~ .switch-slider {
   max-width: 10ch;
 }
 
-.banner-card .banner-text { margin-block: 10px 15px;
+.banner-card .banner-text {
+  margin-block: 10px 15px;
   font-family: var(--font8);
 }
 
 @media (min-width: 768px) {
-  .deals-container{
-      padding: 2rem;
+  .deals-container {
+    padding: 2rem;
   }
-  
-  .banner-list { grid-template-columns: repeat(4, 1fr); }
+
+  .banner-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
 
   .banner-lg {
-      grid-column: 1 / 3;
-      grid-row: 1 / 3;
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
   }
 
   .banner-md {
-      grid-column: 3 / 5;
-      grid-row: 2 / 3;
-      height: 220px;
+    grid-column: 3 / 5;
+    grid-row: 2 / 3;
+    height: 220px;
   }
-  .banner-md .banner-item-content { 
-      left: 55%;   
+  .banner-md .banner-item-content {
+    left: 55%;
   }
 }
