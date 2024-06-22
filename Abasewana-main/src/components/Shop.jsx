@@ -182,7 +182,6 @@ function Shop() {
       'Noodles',
       'Pasta',
       'Chopsuey',
-
       'Devilled',
       'Curry',
       'Prawns',
