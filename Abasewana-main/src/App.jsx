@@ -17,6 +17,7 @@ import OrderList from './components/OrderList.jsx';
 import OrderFilterForm from './components/OrderFilterForm.jsx';
 import Staff from './components/Staff.jsx';
 import Status from './components/OrderStatus.jsx';
+import AddProductForm from './components/AddProductForm.jsx';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/qrgenerator" element={<QRCodeGenerator />} />
-            <Route path="/products" element={<Products />} />
+
             <Route
               path="/"
               element={
@@ -37,6 +38,7 @@ function App() {
               <Route index element={<Pages />} />
               <Route path="shop" element={<Shop />} />
               <Route path="cart" element={<Cart />} />
+              <Route path="/products" element={<Products />} />
               <Route path="order-details" element={<OrderDetails />} />
               <Route path="placed-orders" element={<PlacedOrders />} />
               <Route path="order-display" element={<OrderDisplay />} />{' '}
@@ -46,9 +48,9 @@ function App() {
               <Route path="ordered" element={<OrderList />} />{' '}
               {/* Corrected path */}
               <Route path="order-filter" element={<OrderFilterForm />} />{' '}
-              <Route path="staff" element={<Staff />} />{' '}
-              {/* Corrected path */}
+              <Route path="staff" element={<Staff />} /> {/* Corrected path */}
               <Route path="status" element={<Status />} />{' '}
+              <Route path="add_product" element={<AddProductForm />} />{' '}
             </Route>
           </Routes>
           <RouteTracker />

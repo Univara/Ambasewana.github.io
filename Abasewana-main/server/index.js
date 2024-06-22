@@ -78,9 +78,10 @@ server.on('upgrade', (request, socket, head) => {
 // API endpoints
 
 // Endpoint to add Indian products
+// Endpoint to add Indian products
 app.post('/api/products/indian', async (req, res) => {
   try {
-    const { name, description, price, category } = req.body;
+    const { name, description, ground_price, upper_price, category } = req.body; // Define ground_price and upper_price
 
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).json({ error: 'No image file provided' });
@@ -120,7 +121,7 @@ app.post('/api/products/indian', async (req, res) => {
 // Endpoint to add Chinese products
 app.post('/api/products/chinese', async (req, res) => {
   try {
-    const { name, description, price, category } = req.body;
+    const { name, description, ground_price, upper_price, category } = req.body; // Define ground_price and upper_price
 
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).json({ error: 'No image file provided' });
@@ -193,6 +194,56 @@ app.get('/api/products/chinese', async (req, res) => {
     res.json(products);
   } catch (error) {
     console.error('Error getting products: ', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+// DELETE /api/products/indian/:productId
+app.delete('/api/products/indian/:productId', async (req, res) => {
+  const { productId } = req.params;
+
+  try {
+    // Retrieve the product data before deleting
+    const productDoc = await db
+      .collection('indian_products')
+      .doc(productId)
+      .get();
+    if (!productDoc.exists) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // Delete the product from the collection
+    await db.collection('indian_products').doc(productId).delete();
+
+    res.status(200).json({
+      message: 'Indian product deleted successfully',
+    });
+  } catch (error) {
+    console.error('Error deleting Indian product: ', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+// DELETE /api/products/chinese/:productId
+app.delete('/api/products/chinese/:productId', async (req, res) => {
+  const { productId } = req.params;
+
+  try {
+    // Retrieve the product data before deleting
+    const productDoc = await db
+      .collection('chinese_products')
+      .doc(productId)
+      .get();
+    if (!productDoc.exists) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // Delete the product from the collection
+    await db.collection('chinese_products').doc(productId).delete();
+
+    res.status(200).json({
+      message: 'Chinese product deleted successfully',
+    });
+  } catch (error) {
+    console.error('Error deleting Chinese product: ', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

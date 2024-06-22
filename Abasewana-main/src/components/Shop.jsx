@@ -125,7 +125,12 @@ function Shop() {
       )
     );
   };
-
+  const getPriceDisplay = (item) => {
+    const table = parseInt(tableNumber);
+    const price =
+      table >= 1 && table <= 30 ? item.ground_price : item.upper_price;
+    return `Rs.${price}`;
+  };
   const remainingItems = displayedItems.length - visible;
 
   const ItemsElements = displayedItems.slice(0, visible).map((item) => (
@@ -137,7 +142,7 @@ function Shop() {
       <div className="item-info">
         <p className="item-name ">{item.name}</p>
         <p className="price">
-          Rs.{item.price}{' '}
+          {getPriceDisplay(item)}{' '}
           <span className="original-price">{item.originalPrice}</span>
         </p>
         <button
