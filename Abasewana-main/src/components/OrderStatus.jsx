@@ -77,7 +77,7 @@ const OrderStatus = () => {
     <div className="orders-container">
       <ToastContainer />
       <h1 className="orders-heading">Order Status</h1>
-      <div className="search-container">
+      <div className="searchStatus-container">
         <div className="search-input-container">
           <input
             type="text"

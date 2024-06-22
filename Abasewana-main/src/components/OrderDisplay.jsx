@@ -31,7 +31,10 @@ const OrderDisplay = () => {
     try {
       setLoading(true);
       const response = await axios.get("http://localhost:3000/api/getOrders");
-      setOrders(response.data);
+      const sortedOrders = response.data.sort(
+        (a, b) => new Date(a.dateTime) - new Date(b.dateTime)
+      );
+      setOrders(sortedOrders);
       setLoading(false);
     } catch (error) {
       setError("Error fetching orders. Please try again later.");
@@ -85,72 +88,84 @@ const OrderDisplay = () => {
     return <div className="orders-container error-message">{error}</div>;
   }
 
+  // Function to group orders into pairs for horizontal display
+  const groupedOrders = [];
+  for (let i = 0; i < orders.length; i += 2) {
+    groupedOrders.push(orders.slice(i, i + 2));
+  }
+
   return (
-    <div className="orders-container">
-      <ToastContainer />
+    <div className="orderside-display">
       <Link to="/order-history">
         <button className="order-history-button">Go to Order History</button>
       </Link>
-      <h1 className="orders-heading">Orders</h1>
+      <h1 className="headorder">Orders</h1>
+      <div className="ordersnew-container1">
+        {groupedOrders.map((pair, index) => (
+          <div key={index} className="orders-row">
+            {pair.map((order) => (
+              <div key={order.orderId} className="order1">
+                <div className="row">
+                  <div className="order-summary">
+                    <i className="fas fa-thumbtack red-pin"></i>
+                    <div className="order-info-group">
+                      <p className="order-info">
+                        <strong>Date Time:</strong>{" "}
+                        {new Date(order.dateTime).toLocaleString()}
+                      </p>
+                      <p className="order-info">
+                        <strong>Customer Name:</strong> {order.customerName}
+                      </p>
+                      <p className="order-info">
+                        <strong>Table:</strong> {order.table}
+                      </p>
+                    </div>
+                    <div className="status">
+                      <p className="current-status">
+                        Current Status: {order.orderStatus}
+                      </p>
+                      <select
+                        className="status-select"
+                        value={order.orderStatus}
+                        onChange={(e) =>
+                          handleUpdateOrderStatus(order.orderId, e.target.value)
+                        }
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="Preparing">Preparing</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    </div>
 
-      {orders.map((order) => (
-        <div key={order.orderId} className="order1">
-          <div className="row">
-            <div className="order-summary">
-              <div className="order-info-group">
-                <p className="order-info">
-                  <strong>Date Time:</strong>{" "}
-                  {new Date(order.dateTime).toLocaleString()}
-                </p>
-                <p className="order-info">
-                  <strong>Customer Name:</strong> {order.customerName}
-                </p>
-                <p className="order-info">
-                  <strong>Table:</strong> {order.table}
-                </p>
-              </div>
-              <div className="status">
-                <p className="current-status">
-                  Current Status: {order.orderStatus}
-                </p>
-                <select
-                  className="status-select"
-                  value={order.orderStatus}
-                  onChange={(e) =>
-                    handleUpdateOrderStatus(order.orderId, e.target.value)
-                  }
-                >
-                  <option value="Pending">Pending</option>
-                  <option value="Preparing">Preparing</option>
-                  <option value="Completed">Completed</option>
-                </select>
-              </div>
-
-              <div className="order-actions">
-                <button
-                  className="action-button"
-                  onClick={() => handleDeleteOrder(order.orderId)}
-                >
-                  Done
-                </button>
-              </div>
-            </div>
-            <div className="items-list">
-              {order.items &&
-                order.items.map((item, index) => (
-                  <div key={index} className="item">
-                    <p className="item-details">
-                      <strong>Item Name:</strong> {item.itemName || item.name}
-                    </p>
-                    <p className="item-details">
-                      <strong>Quantity:</strong> {item.quantity}
-                    </p>
+                    <div className="order-actions">
+                      <button
+                        className="action-button"
+                        onClick={() => handleDeleteOrder(order.orderId)}
+                      >
+                        Done
+                      </button>
+                    </div>
                   </div>
-                ))}
-            </div>
+                  <div className="items-list">
+                    {order.items &&
+                      order.items.map((item, index) => (
+                        <div key={index} className="item">
+                          <p className="item-details">
+                            <strong>Item Name:</strong>{" "}
+                            {item.itemName || item.name}
+                          </p>
+                          <p className="item-details">
+                            <strong>Quantity:</strong> {item.quantity}
+                          </p>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
