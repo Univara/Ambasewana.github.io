@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import "./Styles/OrderDisplay.css"; // Import CSS file for styling
-import Loading from "./Loading"; // Import the Loading component
+import Loading from "./LoadingRing"; // Import the Loading component
 
 const OrderDisplay = () => {
   const [orders, setOrders] = useState([]);

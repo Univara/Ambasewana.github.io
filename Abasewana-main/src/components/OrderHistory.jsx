@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Loading from "./Loading";
+import LoadingRing from "./LoadingRing";
+import Navbar from "./Navbar"; // Import the Navbar component
 import "react-toastify/dist/ReactToastify.css";
 import "./Styles/OrderHistory.css";
 
@@ -23,9 +24,7 @@ const OrderHistory = () => {
   const fetchOrderHistory = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "http://localhost:3000/api/getOrderHistory"
-      );
+      const response = await axios.get("http://localhost:3000/api/getOrderHistory");
 
       // Sort orders by dateTime in descending order (latest first)
       const sortedOrders = response.data.sort((a, b) => {
@@ -104,79 +103,80 @@ const OrderHistory = () => {
     setFilter(event.target.value);
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <div className="order-history-container">{error}</div>;
-  }
-
   return (
-    <div className="order-history-container">
-      <Link to="/order-display">
-        <button className="order-history-button">Go to Orders</button>
-      </Link>
-      <h1 className="headorder">Order History</h1>
+    <div>
+      <Navbar /> {/* Navbar is always displayed */}
+      <div className="order-history-container">
+        <Link to="/order-display">
+          <button className="order-history-button">Go to Orders</button>
+        </Link>
+        <h1 className="headorder">Order History</h1>
 
-      {/* Filter dropdown */}
-      <div className="filter-dropdown">
-        <label htmlFor="filter">Sort By:</label>
-        <select id="filter" value={filter} onChange={handleFilterChange}>
-          <option value="all">All Orders</option>
-          <option value="today">Today</option>
-          <option value="yesterday">Yesterday</option>
-          <option value="lastWeek">Last 7 Days</option>
-          <option value="lastMonth">Last 30 Days</option>
-        </select>
-      </div>
-
-      <ul>
-        <div className="ordersnew-container">
-          {filteredOrders.map((order) => (
-            <li key={order.id} className="order-item">
-              <i className="fas fa-clock green-clock"></i>
-              <div>
-                <p className="order-info">
-                  <strong>Order ID:</strong> {order.id}
-                </p>
-                <p className="order-info">
-                  <strong>Date Time:</strong>{" "}
-                  {new Date(order.dateTime).toLocaleString()}
-                </p>
-                <p className="order-info">
-                  <strong>Order Status:</strong> {order.orderStatus}
-                </p>
-                <p className="order-info">
-                  <strong>Customer Name:</strong> {order.customerName}
-                </p>
-                <p className="order-info">
-                  <strong>Table No:</strong> {order.table}
-                </p>
-              </div>
-              <ul className="items-list">
-                {order.items &&
-                  order.items.map((item, index) => (
-                    <li key={index} className="item">
-                      {item.image && (
-                        <img
-                          src={item.image}
-                          alt={item.itemName || item.name}
-                          className="item-image"
-                        />
-                      )}
-                      <div>
-                        <p>Item Name: {item.itemName || item.name}</p>
-                        <p>Quantity: {item.quantity}</p>
-                        <p>Price: Rs.{item.price}</p>
-                      </div>
-                    </li>
-                  ))}
-              </ul>
-            </li>
-          ))}
+        {/* Filter dropdown */}
+        <div className="filter-dropdown">
+          <label htmlFor="filter">Sort By:</label>
+          <select id="filter" value={filter} onChange={handleFilterChange}>
+            <option value="all">All Orders</option>
+            <option value="today">Today</option>
+            <option value="yesterday">Yesterday</option>
+            <option value="lastWeek">Last 7 Days</option>
+            <option value="lastMonth">Last 30 Days</option>
+          </select>
         </div>
-      </ul>
+
+        {loading ? (
+          <LoadingRing /> // Show loading spinner while fetching data
+        ) : error ? (
+          <div className="order-history-container">{error}</div>
+        ) : (
+          <ul>
+            <div className="ordersnew-container">
+              {filteredOrders.map((order) => (
+                <li key={order.id} className="order-item">
+                  <i className="fas fa-clock green-clock"></i>
+                  <div>
+                    <p className="order-info">
+                      <strong>Order Name:</strong> {order.orderNumber}
+                    </p>
+                    <p className="order-info">
+                      <strong>Date Time:</strong>{" "}
+                      {new Date(order.dateTime).toLocaleString()}
+                    </p>
+                    <p className="order-info">
+                      <strong>Order Status:</strong> {order.orderStatus}
+                    </p>
+                    <p className="order-info">
+                      <strong>Customer Name:</strong> {order.customerName}
+                    </p>
+                    <p className="order-info">
+                      <strong>Table No:</strong> {order.table}
+                    </p>
+                  </div>
+                  <ul className="items-list">
+                    {order.items &&
+                      order.items.map((item, index) => (
+                        <li key={index} className="item">
+                          {item.image && (
+                            <img
+                              src={item.image}
+                              alt={item.itemName || item.name}
+                              className="item-image"
+                            />
+                          )}
+                          <div>
+                            <p>Item Name: {item.itemName || item.name}</p>
+                            <p>Quantity: {item.quantity}</p>
+                            <p>Price: Rs.{item.price}</p>
+                          </div>
+                        </li>
+                      ))}
+                  </ul>
+                </li>
+              ))}
+            </div>
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
