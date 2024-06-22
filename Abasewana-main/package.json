@@ -21,6 +21,7 @@
     "express": "^4.19.2",
     "firebase": "^10.1.0",
     "firebase-admin": "^12.1.1",
+    "fortawesome": "^0.0.1-security",
     "framer-motion": "^10.16.4",
     "html2canvas": "^1.4.1",
     "install": "^0.13.0",

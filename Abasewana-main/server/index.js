@@ -57,23 +57,23 @@ server.on('upgrade', (request, socket, head) => {
   });
 });
 
-const QRCode = require('qrcode');
-app.get('/api/qrcode', async (req, res) => {
-  const url = req.query.url;
-  console.log('Received URL:', url);
+// const QRCode = require('qrcode');
+// app.get('/api/qrcode', async (req, res) => {
+//   const url = req.query.url;
+//   console.log('Received URL:', url);
 
-  try {
-    if (!url) {
-      return res.status(400).send({ error: 'URL parameter is required' });
-    }
+//   try {
+//     if (!url) {
+//       return res.status(400).send({ error: 'URL parameter is required' });
+//     }
 
-    const qrCode = await QRCode.toDataURL(url);
-    res.send({ qrCode });
-  } catch (error) {
-    console.error('Error generating QR code:', error);
-    res.status(500).send({ error: 'Error generating QR code' });
-  }
-});
+//     const qrCode = await QRCode.toDataURL(url);
+//     res.send({ qrCode });
+//   } catch (error) {
+//     console.error('Error generating QR code:', error);
+//     res.status(500).send({ error: 'Error generating QR code' });
+//   }
+// });
 
 // API endpoints
 
@@ -104,7 +104,8 @@ app.post('/api/products/indian', async (req, res) => {
     const docRef = await db.collection('indian_products').add({
       name,
       description,
-      price,
+      ground_price,
+      upper_price,
       category,
       image: imageUrl[0],
     });
@@ -143,7 +144,8 @@ app.post('/api/products/chinese', async (req, res) => {
     const docRef = await db.collection('chinese_products').add({
       name,
       description,
-      price,
+      ground_price,
+      upper_price,
       category,
       image: imageUrl[0],
     });
