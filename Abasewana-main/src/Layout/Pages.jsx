@@ -34,10 +34,10 @@ function Pages() {
       <Hero />
       <Promo />
       <Features />
-      {/* <Delivery /> */}
+      
       <Deals />
 
-      {/* <Testimonials /> */}
+     
     </div>
   );
 }

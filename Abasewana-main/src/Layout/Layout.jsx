@@ -12,10 +12,7 @@ function Layout() {
       <Footer />
       <div className="credit">
         Copyright Ⓒ 2024 Ambasewana. All Rights Reserved.
-        <div>
-          Crafted by Univara 2024
-          <img src="../assets/univara.jpg" alt="img" />
-        </div>
+        <div>Crafted by Univara 2024</div>
       </div>
     </div>
   );
