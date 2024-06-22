@@ -138,10 +138,10 @@ const OrderDisplay = () => {
               {order.items &&
                 order.items.map((item, index) => (
                   <div key={index} className="item">
-                    <p className="item-info">
+                    <p className="item-details">
                       <strong>Item Name:</strong> {item.itemName || item.name}
                     </p>
-                    <p className="item-info">
+                    <p className="item-details">
                       <strong>Quantity:</strong> {item.quantity}
                     </p>
                   </div>
