@@ -1,10 +1,10 @@
 :root {
-  --main-color: #f1d6c6;
-  --background-color: #821319;
-  --hover-background-color: #110214;
-  --hover-text-color: #007744;
-  --border-color: #af7d7d;
-  --text-color: #000000;
+  --main-color: rgb(160, 19, 27);
+  --background-color: rgb(160, 19, 27);
+  --hover-background-color: rgb(17, 2, 20);
+  --hover-text-color: rgb(0, 119, 68);
+  --border-color: rgb(175, 125, 125);
+  --text-color: rgb(0, 0, 0);
 }
 
 .nav-container {
