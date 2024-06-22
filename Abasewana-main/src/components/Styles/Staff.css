@@ -112,3 +112,53 @@ h2 {
   z-index: 0;
   transition: transform 0.3s ease-out;
 }
+/* Global styles remain the same */
+
+/* Media query for screens smaller than 768px (typical tablets and phones) */
+@media (max-width: 768px) {
+  .card-container {
+    margin: 2rem 0 4rem; /* Adjust margins for better spacing */
+    flex-direction: column; /* Stack cards vertically */
+    align-items: stretch; /* Stretch cards to full width */
+  }
+
+  .card {
+    width: calc(100% - 2rem); /* Full width minus margins */
+    max-width: 300px; /* Limit card width on smaller screens */
+    margin: 0 auto 2rem; /* Center cards and add bottom margin */
+  }
+
+  .card:hover {
+    transform: none; /* Remove hover transforms on smaller screens */
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.04); /* Reset box shadow */
+  }
+
+  .card p {
+    margin-top: 20px; /* Adjust spacing for smaller screens */
+  }
+
+  .circle {
+    width: 100px; /* Adjust circle size for smaller screens */
+    height: 100px;
+  }
+
+  .circle:after {
+    width: 86px; /* Adjust inner circle size */
+    height: 86px;
+    top: 5px;
+    left: 5px;
+  }
+
+  .overlay {
+    width: 86px; /* Adjust overlay size */
+    height: 86px;
+    top: 55px;
+    left: 20px;
+  }
+
+  h2 {
+    margin-top: 4rem; /* Adjust heading margin */
+  }
+}
+
+/* Additional media queries for smaller screens can be added if needed */
