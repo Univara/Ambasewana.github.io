@@ -31,7 +31,7 @@ function PlacedOrders() {
   }, [lastMessage, currentOrderData]);
 
   useEffect(() => {
-    if (currentOrderData && currentOrderData.orderStatus === 'pending') {
+    if (currentOrderData && currentOrderData.orderStatus === 'Pending') {
       setIsLoading(true); // Turn on loading indicator if order status is pending
     }
   }, [currentOrderData]);
@@ -59,7 +59,7 @@ function PlacedOrders() {
         ))}
       </div>
 
-      {currentOrderData.orderStatus === 'pending' && isLoading && (
+      {currentOrderData.orderStatus === 'Pending' && isLoading && (
         <div className="loading-overlay">
           <div className="loader"></div>
           <div class="hourglassBackground">
