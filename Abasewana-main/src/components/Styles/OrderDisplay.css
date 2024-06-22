@@ -8,8 +8,8 @@
 
 /* If you want to center .order1-display horizontally */
 .orderside-display {
-  padding: 1.5rem;
-  margin-top: 5rem; 
+  margin-top: 4.5rem; 
+  padding-top: 1rem;
   background-color: #f9f6f0;
   text-align: left; /* Center content horizontally */
 }

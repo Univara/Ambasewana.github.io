@@ -1,12 +1,11 @@
-/* Container for order history */
+/* Styles/OrderHistory.css */
 .order-history-container {
-  padding: 1.5rem;
-  margin-top: 5rem;
+  margin-top: 4.5rem;
   background-color: #f9f6f0;
   text-align: left;
+  padding-top: 1rem;
 }
 
-/* Button styling */
 .order-history-container button {
   margin-bottom: 10px;
   padding: 10px 20px;
@@ -23,7 +22,6 @@
   background-color: #0056b3;
 }
 
-/* Heading for order history */
 .order-history-container h1 {
   font-size: 30px;
   margin-top: 15px;
@@ -31,9 +29,7 @@
   color: #343a40;
 }
 
-/* Order item styling */
 .order-item {
-  padding: 1rem;
   background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 8px;
@@ -53,7 +49,6 @@
   font-size: 16px;
 }
 
-/* List of items in an order */
 .items-list {
   display: flex;
   flex-wrap: wrap;
@@ -64,7 +59,6 @@
 .item {
   flex: 1;
   min-width: 200px;
-  padding: 10px;
   background-color: #f8f9fa;
   border: 1px solid #ced4da;
   border-radius: 8px;
@@ -77,53 +71,12 @@
   border-radius: 4px;
 }
 
-.item-details {
-  margin: 5px 0;
-  font-size: 14px;
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 768px) {
-  .order-history-container {
-    padding: 1rem;
-  }
-
-  .order-history-container h1 {
-    font-size: 24px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-
-  .items-list {
-    flex-direction: column;
-  }
-
-  .item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-.ordersnew-container {
-  display: grid;
-  padding-top: 0.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns */
-  gap: 1rem; /* Introduce a gap between cards */
-  justify-content: start; /* Align the grid items from the left */
-}
-
-.green-clock{
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  color: rgb(0, 119, 68);
-  font-size: 30px;
-  right: 10px;
-}
 .filter-dropdown {
   margin-bottom: 20px;
 }
 
 .filter-dropdown label {
-  font-size: 16px;
+  font-size: 20px;
   margin-right: 10px;
 }
 
@@ -133,6 +86,18 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-.filter-dropdown label {
-  font-size: 20px; /* Adjust the size as needed */
+
+.ordersnew-container {
+  display: grid;
+  padding-top: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  justify-content: start;
+}
+
+.green-clock {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: rgb(0, 119, 68);
+  font-size: 30px;
 }
