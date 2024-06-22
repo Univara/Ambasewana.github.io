@@ -128,7 +128,7 @@ function Shop() {
   const getPriceDisplay = (item) => {
     const table = parseInt(tableNumber);
     const price =
-      table >= 1 && table <= 30 ? item.ground_price : item.upper_price;
+      table >= 30 && table <= 35 ? item.upper_price : item.ground_price;
     return `Rs.${price}`;
   };
   const remainingItems = displayedItems.length - visible;
@@ -229,6 +229,21 @@ function Shop() {
     'Kottu Naan': dishes,
   };
 
+  const bannerContent = {
+    chinese: {
+      title: 'Delicious Chinese Cuisine',
+      text: 'Savor the flavors of China',
+      imgSrc: banner3, // Update this with the correct image for Chinese cuisine
+    },
+    indian: {
+      title: 'Authentic Indian Dishes',
+      text: 'Taste the spices of India',
+      imgSrc: banner3, // Update this with the correct image for Indian cuisine
+    },
+  };
+
+  const currentBanner = bannerContent[foodCategory];
+
   return (
     <div className="shop-container">
       {showTransition && <Transition />}
@@ -272,17 +287,17 @@ function Shop() {
       <li className="banner-item banner-sm">
         <div className="banner-card">
           <img
-            src={banner3}
+            src={currentBanner.imgSrc}
             width="550"
             height="465"
             loading="lazy"
-            alt="American Burgers"
+            alt={currentBanner.title}
             className="deal-img"
           />
 
           <div className="banner-item-content">
-            <h3 className="banner-title">American Burgers</h3>
-            <p className="banner-text">50% off Now</p>
+            <h3 className="banner-title">{currentBanner.title}</h3>
+            <p className="banner-text">{currentBanner.text}</p>
           </div>
         </div>
       </li>

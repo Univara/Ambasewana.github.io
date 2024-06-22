@@ -1,5 +1,10 @@
 :root {
   --main-color: #f1d6c6;
+  --background-color: #821319;
+  --hover-background-color: #110214;
+  --hover-text-color: #007744;
+  --border-color: #af7d7d;
+  --text-color: #000000;
 }
 
 .nav-container {
@@ -38,8 +43,8 @@ header::after {
 .site-nav {
   position: absolute;
   top: 100%;
-  right: 0%;
-  background: #821319;
+  right: 0;
+  background: var(--background-color);
   clip-path: circle(0px at top right);
   transition: clip-path ease-in-out 700ms;
 }
@@ -55,7 +60,7 @@ header::after {
 }
 
 .site-nav li {
-  border-bottom: 1px solid #af7d7d;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .site-nav li:last-child {
@@ -63,9 +68,9 @@ header::after {
 }
 
 .site-nav a {
-  color: #000000;
+  color: var(--text-color);
   display: block;
-  padding: 2em 4em 2em 1.5em;
+  padding: 1.5rem 2rem;
   text-transform: uppercase;
   text-decoration: none;
   font-family: var(--font8);
@@ -74,8 +79,8 @@ header::after {
 
 .site-nav a:hover,
 .site-nav a:focus {
-  background: #110214;
-  color: #007744;
+  background: var(--hover-background-color);
+  color: var(--hover-text-color);
   cursor: pointer;
 }
 
@@ -91,7 +96,7 @@ header::after {
 .menu-toggle {
   padding: 1em;
   cursor: pointer;
-  display: block; /* Ensure the menu toggle is displayed on all screen sizes */
+  display: block;
 }
 
 .hamburger,
@@ -128,7 +133,7 @@ header::after {
 
 @media (min-width: 885px) {
   .menu-toggle {
-    display: none; /* Hide the toggle button on larger screens */
+    display: none;
   }
 
   .site-nav {
@@ -166,20 +171,32 @@ header::after {
   }
 
   .site-nav a {
-    padding: 1.5em 3em 1.5em 1em;
+    padding: 1rem 1.5rem;
   }
 
   .site-nav {
     position: absolute;
     top: 100%;
     right: 0;
-    background: #821319;
+    background: var(--background-color);
     clip-path: circle(0px at top right);
     transition: clip-path ease-in-out 700ms;
+    width: 80%;
+    max-width: 320px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .site-nav--open {
     clip-path: circle(250% at top right);
+  }
+
+  .site-nav li {
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.5rem 0;
+  }
+
+  .site-nav a {
+    padding: 1rem 1.5rem;
   }
 }
 
