@@ -7,7 +7,7 @@ import Loading from "./Loading"; // Import the Loading component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faClock, faCheck } from "@fortawesome/free-solid-svg-icons"; // Import clock and check icons
 
-const OrderDisplay = () => {
+const OrderStatus = () => {
   const [orderStatus, setOrderStatus] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -129,4 +129,4 @@ const OrderDisplay = () => {
   );
 };
 
-export default OrderDisplay;
+export default OrderStatus;

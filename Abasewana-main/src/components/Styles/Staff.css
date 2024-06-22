@@ -7,6 +7,12 @@
   justify-content: center; /* Center the cards horizontally */
   align-items: center;
 }
+
+.orders-container {
+  background-color: #f9f6f0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .dash {
   display: block;
   margin-top: 8rem;
