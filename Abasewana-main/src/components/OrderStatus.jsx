@@ -113,17 +113,72 @@ const OrderStatus = () => {
           orderStatus.length > 0 &&
           orderStatus.map((order) => (
             <div key={order.id} className="status-item">
-              <p>Table No: {order.table}</p>
-              <p>Status: {order.orderStatus}</p>
-              {order.orderStatus === 'Pending' && (
-                <FontAwesomeIcon icon={faClock} className="clock-icon" />
-              )}
-              {order.orderStatus === 'Completed' && (
-                <FontAwesomeIcon icon={faCheck} className="check-icon" />
-              )}
-              {order.orderStatus === 'Preparing' && (
-                <FontAwesomeIcon icon={faUtensils} className="utensils-icon" />
-              )}
+              <div>
+                <p className="table_title">Table No: {order.table}</p>
+              </div>
+              <p>Your Order is {order.orderStatus}</p>
+              <div className="order-status-container">
+                {order.orderStatus === 'Pending' && (
+                  <div className="loading-overlay">
+                    <div className="loader"></div>
+                    <div class="hourglassBackground">
+                      <div class="hourglassContainer">
+                        <div class="hourglassCurves"></div>
+                        <div class="hourglassCapTop"></div>
+                        <div class="hourglassGlassTop"></div>
+                        <div class="hourglassSand"></div>
+                        <div class="hourglassSandStream"></div>
+                        <div class="hourglassCapBottom"></div>
+                        <div class="hourglassGlass"></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {order.orderStatus === 'Completed' && (
+                  <div class="success-animation">
+                    <svg
+                      class="checkmark"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 52 52"
+                    >
+                      <circle
+                        class="checkmark__circle"
+                        cx="26"
+                        cy="26"
+                        r="25"
+                        fill="none"
+                      />
+                      <path
+                        class="checkmark__check"
+                        fill="none"
+                        d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                      />
+                    </svg>
+                    <br />
+                    <p>Waiter Will Come to you!!</p>
+                  </div>
+                )}
+                {order.orderStatus === 'Preparing' && (
+                  <>
+                    <div id="cooking">
+                      <div class="bubble"></div>
+                      <div class="bubble"></div>
+                      <div class="bubble"></div>
+                      <div class="bubble"></div>
+                      <div class="bubble"></div>
+                      <div id="area">
+                        <div id="sides">
+                          <div id="pan"></div>
+                          <div id="handle"></div>
+                        </div>
+                        <div id="pancake">
+                          <div id="pastry"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           ))
         )}
