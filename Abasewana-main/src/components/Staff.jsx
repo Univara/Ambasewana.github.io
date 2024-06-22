@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Staff() {
   return (
     <>
-      <h2>DASHBOARD</h2>
+      <h2 className='dash'>DASHBOARD</h2>
       <div className="card-container">
         <br />
         <Link to="/qrgenerator">
