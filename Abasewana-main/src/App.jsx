@@ -16,6 +16,7 @@ import Products from './components/Products.jsx';
 import OrderList from './components/OrderList.jsx';
 import OrderFilterForm from './components/OrderFilterForm.jsx';
 import Staff from './components/Staff.jsx';
+import Status from './components/OrderStatus.jsx';
 
 function App() {
   return (
@@ -46,6 +47,8 @@ function App() {
               {/* Corrected path */}
               <Route path="order-filter" element={<OrderFilterForm />} />{' '}
               <Route path="staff" element={<Staff />} />{' '}
+              {/* Corrected path */}
+              <Route path="status" element={<Status />} />{' '}
             </Route>
           </Routes>
           <RouteTracker />
