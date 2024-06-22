@@ -78,7 +78,7 @@ function OrderDetails() {
         customerName: userName,
         table: tableNumber,
         orderNumber: orderNumber, // Use the generated order number
-        orderStatus: 'pending', // Example status, adjust as per your app logic
+        orderStatus: 'Pending', // Example status, adjust as per your app logic
         items: orderItems,
       };
 
