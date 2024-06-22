@@ -278,9 +278,6 @@ function Shop() {
           <div className="banner-item-content">
             <h3 className="banner-title">American Burgers</h3>
             <p className="banner-text">50% off Now</p>
-            <Link to="/shop?catagory=Burger">
-              <button className="button">Order Now</button>
-            </Link>
           </div>
         </div>
       </li>
