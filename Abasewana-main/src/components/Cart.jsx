@@ -135,14 +135,7 @@ function Cart({ closeSidebar, tableNumber }) {
       <div className="total-price">
         <h2>Total Price: Rs.{total}</h2>
       </div>
-      <div className="table-number-display">
-        {tableNumber && (
-          <div className="table-number-display">
-            <h3>Table Number: {tableNumber}</h3>
-          </div>
-        )}
-        {/* Display table number */}
-      </div>
+
       <div className="checkout-btn">
         <button className="cart-button" onClick={handleCheckout}>
           Check Out

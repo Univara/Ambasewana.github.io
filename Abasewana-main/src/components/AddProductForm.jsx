@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Styles/AddProductForm.css';
+import { toast } from 'react-toastify';
 
 const AddProductForm = () => {
   const [formData, setFormData] = useState({
@@ -40,7 +41,7 @@ const AddProductForm = () => {
           },
         }
       );
-      setMessage('Product added successfully!');
+      toast.success('Product added Successfully!!');
     } catch (error) {
       setMessage(`Failed to add product: ${error.response.data.error}`);
     }

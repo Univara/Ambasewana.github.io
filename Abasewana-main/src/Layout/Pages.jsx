@@ -32,12 +32,6 @@ function Pages() {
     <div>
       {showTransition && <Transition />}
       <Hero />
-      <Promo />
-      <Features />
-      
-      <Deals />
-
-     
     </div>
   );
 }
