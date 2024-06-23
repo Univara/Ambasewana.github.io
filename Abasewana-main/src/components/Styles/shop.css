@@ -41,6 +41,20 @@
   padding-inline: 2rem;
   gap: 1rem;
 }
+.item-card {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.2);
+  padding: 1rem;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  width: 200px; /* Add fixed width */
+  height: 300px; /* Add fixed height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
 .item-card.item-pic {
   transition: transform 0.3s ease-in-out;
 }
@@ -50,20 +64,12 @@
 .item-pic:hover {
   transform: scale(1.05);
 }
-.item-card {
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.2);
-  padding: 1rem;
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-}
 .item-pic {
   margin-top: 1rem;
   display: block;
   max-width: 100%;
-  width: 200px;
-  height: 200px;
+  width: 100%; /* Adjust width */
+  height: 150px; /* Adjust height */
   object-fit: contain;
 }
 .item-discount {
@@ -206,6 +212,10 @@
     margin-right: 5px;
     font-size: 16px;
   }
+  .item-card {
+    width: 150px; /* Adjust width for mobile view */
+    height: 250px; /* Adjust height for mobile view */
+  }
 }
 .search-container {
   display: flex;
@@ -270,7 +280,7 @@
   display: inline-flex;
   align-items: center;
   background-color: #f0f0f0;
-  border: 2px solidrgb(0, 119, 68);
+  border: 2px solid rgb(0, 119, 68);
   border-radius: 30px;
   overflow: hidden;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -300,7 +310,7 @@
 }
 
 .switch-label:last-of-type {
-  border-radius: 30px 30px 30px 30px;
+  border-radius: 0 30px 30px 0;
 }
 
 .switch input:checked + .switch-label {
@@ -348,7 +358,7 @@ input#indian:checked ~ .switch-slider {
   }
 
   .switch-label:last-of-type {
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 0 20px 20px 0;
   }
 
   .switch-slider {
@@ -369,7 +379,7 @@ input#indian:checked ~ .switch-slider {
 
   .switch-label:first-of-type,
   .switch-label:last-of-type {
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 10px;
   }
 
   .switch-slider {
@@ -520,7 +530,7 @@ input#indian:checked ~ .switch-slider {
   }
 }
 
-\\details .deals-container {
+.details .deals-container {
   padding: 0.4rem;
 }
 .banner {
