@@ -26,7 +26,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/qrgenerator" element={<QRCodeGenerator />} />
-
             <Route
               path="/"
               element={
@@ -38,19 +37,16 @@ function App() {
               <Route index element={<Pages />} />
               <Route path="shop" element={<Shop />} />
               <Route path="cart" element={<Cart />} />
-              <Route path="/products" element={<Products />} />
+              <Route path="products" element={<Products />} />
               <Route path="order-details" element={<OrderDetails />} />
               <Route path="placed-orders" element={<PlacedOrders />} />
-              <Route path="order-display" element={<OrderDisplay />} />{' '}
-              {/* Corrected path */}
-              <Route path="order-history" element={<OrderHistory />} />{' '}
-              {/* Corrected path */}
-              <Route path="ordered" element={<OrderList />} />{' '}
-              {/* Corrected path */}
-              <Route path="order-filter" element={<OrderFilterForm />} />{' '}
-              <Route path="staff" element={<Staff />} /> {/* Corrected path */}
-              <Route path="status" element={<Status />} />{' '}
-              <Route path="add_product" element={<AddProductForm />} />{' '}
+              <Route path="order-display" element={<OrderDisplay />} />
+              <Route path="order-history" element={<OrderHistory />} />
+              <Route path="ordered" element={<OrderList />} />
+              <Route path="order-filter" element={<OrderFilterForm />} />
+              <Route path="staff" element={<Staff />} />
+              <Route path="status" element={<Status />} />
+              <Route path="add_product" element={<AddProductForm />} />
             </Route>
           </Routes>
           <RouteTracker />
