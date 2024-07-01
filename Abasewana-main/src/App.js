@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Layout from './Layout/Layout';
-import Shop from './components/Shop';
-import Pages from './Layout/Pages';
+import Layout from './Layout/Layout.jsx';
+import Shop from './components/Shop.jsx';
+import Pages from './Layout/Pages.jsx';
 import { RecoilRoot } from 'recoil';
-import { AuthProvider } from './config/Context';
-import RouteTracker from './RouterTracker';
+import { AuthProvider } from './config/Context.jsx';
+import RouteTracker from './RouterTracker.jsx';
 import OrderHistory from './components/OrderHistory.jsx';
 import OrderDisplay from './components/OrderDisplay.jsx';
 import Cart from './components/Cart.jsx';
