@@ -255,6 +255,9 @@ function Shop() {
         <h1>Explore Our Menu</h1>
 
         {/* Display table number */}
+        <div className="table-number">
+          {tableNumber && <p>Table Number: {tableNumber}</p>}
+        </div>
         <div className="food-category-switch switch-container">
           <div className="switch">
             <input

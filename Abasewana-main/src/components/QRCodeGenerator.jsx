@@ -34,7 +34,7 @@ function QRCodeGenerator() {
       {tableNumber && (
         <div>
           <QRCode
-            value={`http://localhost:5173/shop?table=${tableNumber}`}
+            value={`https://ambasewanasl.netlify.app/shop?table=${tableNumber}`}
             size={200}
           />
           <br />
