@@ -10,7 +10,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL:
     'https://ambasewana-a6fa5-default-rtdb.asia-southeast1.firebasedatabase.app',
-  storageBucket: 'gs://ambasewana-a6fa5.appspot.com',
+  storageBucket: 'gs://ambasewana-37141.appspot.com',
 });
 
 const db = admin.firestore();
