@@ -136,7 +136,11 @@ function Shop() {
   const ItemsElements = displayedItems.slice(0, visible).map((item) => (
     <div className="item-card" key={item.id}>
       <div className="item-pic">
-        <img className="item-pic" src={item.image} alt={item.name} />
+        <img
+          className="item-pic"
+          src="https://firebasestorage.googleapis.com/v0/b/ambasewana-37141.appspot.com/o/images%2F1720027480506_420.Stir%20Fried%20Rice%20With%20Vegetables?alt=media&token=6704f905-edd6-447b-9637-1fa2464ef1d4"
+          alt={item.name}
+        />
       </div>
       <div className="item-info">
         <p className="item-name ">{item.name}</p>
