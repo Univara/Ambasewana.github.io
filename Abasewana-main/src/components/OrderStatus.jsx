@@ -24,7 +24,7 @@ const OrderStatus = () => {
       setLoading(true);
       const timestamp = new Date().getTime();
       const response = await axios.get(
-        `http://localhost:3000/api/getOrders?tableNo=${tableNo}&timestamp=${timestamp}`
+        `https://1b3a4432-5929-44d9-8dc8-996bffbfcf48-00-3up1na66l4ofb.picard.replit.dev:3000//api/getOrders?tableNo=${tableNo}&timestamp=${timestamp}`
       );
       const filteredOrders = response.data.filter(
         (order) => order.table === tableNo

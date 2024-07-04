@@ -84,7 +84,7 @@ function OrderDetails() {
 
       // Send POST request to server
       const response = await axios.post(
-        'http://localhost:3000/api/orders',
+        'https://1b3a4432-5929-44d9-8dc8-996bffbfcf48-00-3up1na66l4ofb.picard.replit.dev:3000/api/orders',
         orderData
       );
 
