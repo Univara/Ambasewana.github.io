@@ -128,7 +128,6 @@ function OrderDetails() {
               type="text"
               value={tableNumber}
               onChange={(e) => setTableNumber(e.target.value)}
-              readOnly
             />
           </div>
           <button onClick={handleSubmit} className="button">
