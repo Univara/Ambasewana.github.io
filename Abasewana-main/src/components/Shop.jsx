@@ -125,57 +125,58 @@ function Shop() {
       )
     );
   };
+
   const getPriceDisplay = (item) => {
     const table = parseInt(tableNumber);
     const price =
       table >= 30 && table <= 35 ? item.upper_price : item.ground_price;
     return `Rs.${price}`;
   };
+
   const remainingItems = displayedItems.length - visible;
 
-  const ItemsElements = displayedItems.slice(0, visible).map((item) => (
-    <div className="item-card" key={item.id}>
-      <div className="item-pic">
-        <img
-          className="item-pic"
-          src="https://firebasestorage.googleapis.com/v0/b/ambasewana-37141.appspot.com/o/images%2F1720027480506_420.Stir%20Fried%20Rice%20With%20Vegetables?alt=media&token=6704f905-edd6-447b-9637-1fa2464ef1d4"
-          alt={item.name}
-        />
-      </div>
-      <div className="item-info">
-        <p className="item-name ">{item.name}</p>
-        <p className="price">
-          {getPriceDisplay(item)}{' '}
-          <span className="original-price">{item.originalPrice}</span>
-        </p>
-        <button
-          className="cart-button"
-          onClick={() => {
-            addToCart(item, cart, setCart);
-            toggleClicked(item);
+  const ItemsElements = displayedItems.slice(0, visible).map((item) => {
+    console.log('Item image URL:', item.image); // Debugging line
+    return (
+      <div className="item-card" key={item.id}>
+        <div className="item-pic">
+          <img className="item-pic" src={item.image} alt={item.name} />
+        </div>
+        <div className="item-info">
+          <p className="item-name ">{item.name}</p>
+          <p className="price">
+            {getPriceDisplay(item)}{' '}
+            <span className="original-price">{item.originalPrice}</span>
+          </p>
+          <button
+            className="cart-button"
+            onClick={() => {
+              addToCart(item, cart, setCart);
+              toggleClicked(item);
 
-            setNotification({
-              message: `${item.name} has been added to your cart!`,
-              visible: true,
-            });
-            setTimeout(() => {
-              setNotification({ ...notification, visible: false });
-            }, 1000);
-          }}
-        >
-          {item.clicked ? (
-            <>
-              Added to Cart <BsCartCheckFill />
-            </>
-          ) : (
-            <>
-              Add to Cart <BsFillCartPlusFill />
-            </>
-          )}
-        </button>
+              setNotification({
+                message: `${item.name} has been added to your cart!`,
+                visible: true,
+              });
+              setTimeout(() => {
+                setNotification({ ...notification, visible: false });
+              }, 1000);
+            }}
+          >
+            {item.clicked ? (
+              <>
+                Added to Cart <BsCartCheckFill />
+              </>
+            ) : (
+              <>
+                Add to Cart <BsFillCartPlusFill />
+              </>
+            )}
+          </button>
+        </div>
       </div>
-    </div>
-  ));
+    );
+  });
 
   const filterOptions = {
     chinese: [

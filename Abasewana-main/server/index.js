@@ -10,7 +10,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL:
     'https://ambasewana-a6fa5-default-rtdb.asia-southeast1.firebasedatabase.app',
-  storageBucket: 'gs://ambasewana-37141.appspot.com',
+  storageBucket: 'ambasewana-37141.appspot.com',
 });
 
 const db = admin.firestore();
@@ -57,31 +57,12 @@ server.on('upgrade', (request, socket, head) => {
   });
 });
 
-// const QRCode = require('qrcode');
-// app.get('/api/qrcode', async (req, res) => {
-//   const url = req.query.url;
-//   console.log('Received URL:', url);
-
-//   try {
-//     if (!url) {
-//       return res.status(400).send({ error: 'URL parameter is required' });
-//     }
-
-//     const qrCode = await QRCode.toDataURL(url);
-//     res.send({ qrCode });
-//   } catch (error) {
-//     console.error('Error generating QR code:', error);
-//     res.status(500).send({ error: 'Error generating QR code' });
-//   }
-// });
-
 // API endpoints
 
 // Endpoint to add Indian products
-// Endpoint to add Indian products
 app.post('/api/products/indian', async (req, res) => {
   try {
-    const { name, description, ground_price, upper_price, category } = req.body; // Define ground_price and upper_price
+    const { name, description, ground_price, upper_price, category } = req.body;
 
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).json({ error: 'No image file provided' });
@@ -97,10 +78,9 @@ app.post('/api/products/indian', async (req, res) => {
       },
     });
 
-    const imageUrl = await storageRef.getSignedUrl({
-      action: 'read',
-      expires: '03-01-2500',
-    });
+    const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${
+      storage.bucket().name
+    }/o/${encodeURIComponent(storageRef.name)}?alt=media`;
 
     const docRef = await db.collection('indian_products').add({
       name,
@@ -108,7 +88,7 @@ app.post('/api/products/indian', async (req, res) => {
       ground_price,
       upper_price,
       category,
-      image: imageUrl[0],
+      image: imageUrl,
     });
 
     res.status(201).json({ id: docRef.id });
@@ -121,7 +101,7 @@ app.post('/api/products/indian', async (req, res) => {
 // Endpoint to add Chinese products
 app.post('/api/products/chinese', async (req, res) => {
   try {
-    const { name, description, ground_price, upper_price, category } = req.body; // Define ground_price and upper_price
+    const { name, description, ground_price, upper_price, category } = req.body;
 
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).json({ error: 'No image file provided' });
@@ -137,10 +117,9 @@ app.post('/api/products/chinese', async (req, res) => {
       },
     });
 
-    const imageUrl = await storageRef.getSignedUrl({
-      action: 'read',
-      expires: '03-01-2500',
-    });
+    const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${
+      storage.bucket().name
+    }/o/${encodeURIComponent(storageRef.name)}?alt=media`;
 
     const docRef = await db.collection('chinese_products').add({
       name,
@@ -148,7 +127,7 @@ app.post('/api/products/chinese', async (req, res) => {
       ground_price,
       upper_price,
       category,
-      image: imageUrl[0],
+      image: imageUrl,
     });
 
     res.status(201).json({ id: docRef.id });
@@ -197,6 +176,7 @@ app.get('/api/products/chinese', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 // DELETE /api/products/indian/:productId
 app.delete('/api/products/indian/:productId', async (req, res) => {
   const { productId } = req.params;
@@ -222,6 +202,7 @@ app.delete('/api/products/indian/:productId', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 // DELETE /api/products/chinese/:productId
 app.delete('/api/products/chinese/:productId', async (req, res) => {
   const { productId } = req.params;
@@ -416,10 +397,11 @@ app.get('/api/getOrderHistory', async (req, res) => {
 
     res.status(200).json(orderHistory);
   } catch (error) {
-    console.error('Error fetching order history: ', error);
+    console.error('Error fetching order history:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 // getuserOrderStatus
 app.get('/api/OrdersStatus', async (req, res) => {
   const { customerName, table } = req.query;
@@ -447,7 +429,7 @@ app.get('/api/OrdersStatus', async (req, res) => {
 
     res.status(200).json(orders);
   } catch (error) {
-    console.error('Error fetching orders: ', error);
+    console.error('Error fetching orders:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
