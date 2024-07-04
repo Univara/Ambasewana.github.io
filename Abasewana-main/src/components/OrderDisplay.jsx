@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
-import "./Styles/OrderDisplay.css"; // Import CSS file for styling
-import Loading from "./LoadingRing"; // Import the Loading component
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
+import './Styles/OrderDisplay.css'; // Import CSS file for styling
+import Loading from './LoadingRing'; // Import the Loading component
 
 const OrderDisplay = () => {
   const [orders, setOrders] = useState([]);
@@ -15,38 +15,40 @@ const OrderDisplay = () => {
     fetchOrders();
 
     const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
+      if (document.visibilityState === 'visible') {
         fetchOrders();
       }
     };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3000/api/getOrders");
+      const response = await axios.get(
+        'https://1b3a4432-5929-44d9-8dc8-996bffbfcf48-00-3up1na66l4ofb.picard.replit.dev:3000/api/getOrders'
+      );
       const sortedOrders = response.data.sort(
         (a, b) => new Date(a.dateTime) - new Date(b.dateTime)
       );
       setOrders(sortedOrders);
       setLoading(false);
     } catch (error) {
-      setError("Error fetching orders. Please try again later.");
+      setError('Error fetching orders. Please try again later.');
       setLoading(false);
-      console.error("Error fetching orders:", error);
+      console.error('Error fetching orders:', error);
     }
   };
 
   const handleDeleteOrder = async (orderId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/deleteOrder/${orderId}`
+        `https://1b3a4432-5929-44d9-8dc8-996bffbfcf48-00-3up1na66l4ofb.picard.replit.dev:3000/api/deleteOrder/${orderId}`
       );
       const { message } = response.data;
 
@@ -54,15 +56,15 @@ const OrderDisplay = () => {
 
       fetchOrders();
     } catch (error) {
-      console.error("Error deleting order:", error);
-      toast.error("Error deleting order. Please try again.");
+      console.error('Error deleting order:', error);
+      toast.error('Error deleting order. Please try again.');
     }
   };
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/updateOrderStatus/${orderId}`,
+        `https://1b3a4432-5929-44d9-8dc8-996bffbfcf48-00-3up1na66l4ofb.picard.replit.dev:3000/api/updateOrderStatus/${orderId}`,
         { orderStatus: newStatus }
       );
       const { message } = response.data;
@@ -71,7 +73,7 @@ const OrderDisplay = () => {
 
       fetchOrders();
     } catch (error) {
-      console.error("Error updating order status:", error);
+      console.error('Error updating order status:', error);
       toast.error(
         `Error updating order status: ${
           error.response?.data?.message || error.message
@@ -110,7 +112,7 @@ const OrderDisplay = () => {
                     <i className="fas fa-thumbtack red-pin"></i>
                     <div className="order-info-group">
                       <p className="order-info">
-                        <strong>Date Time:</strong>{" "}
+                        <strong>Date Time:</strong>{' '}
                         {new Date(order.dateTime).toLocaleString()}
                       </p>
                       <p className="order-info">
@@ -151,7 +153,7 @@ const OrderDisplay = () => {
                       order.items.map((item, index) => (
                         <div key={index} className="item">
                           <p className="item-details">
-                            <strong>Item Name:</strong>{" "}
+                            <strong>Item Name:</strong>{' '}
                             {item.itemName || item.name}
                           </p>
                           <p className="item-details">
