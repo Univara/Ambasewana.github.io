@@ -281,7 +281,7 @@ app.post('/api/orders', async (req, res) => {
   try {
     const { customerName, table, items, orderNumber, orderStatus } = req.body;
 
-    if (!customerName || !orderNumber || !orderStatus) {
+    if (!customerName || !table || !orderNumber || !orderStatus || !items) {
       return res.status(400).json({
         error:
           'Please provide all required fields: customerName, table, orderNumber, orderStatus, and valid items array with itemName, image, price, and quantity',

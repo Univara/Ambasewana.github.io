@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import LoadingRing from "./LoadingRing";
-import Navbar from "./Navbar"; // Import the Navbar component
-import "react-toastify/dist/ReactToastify.css";
-import "./Styles/OrderHistory.css";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import LoadingRing from './LoadingRing';
+import Navbar from './Navbar'; // Import the Navbar component
+import 'react-toastify/dist/ReactToastify.css';
+import './Styles/OrderHistory.css';
 
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState("all"); // Default filter is "all"
+  const [filter, setFilter] = useState('all'); // Default filter is "all"
 
   useEffect(() => {
     fetchOrderHistory();
@@ -24,7 +24,9 @@ const OrderHistory = () => {
   const fetchOrderHistory = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3000/api/getOrderHistory");
+      const response = await axios.get(
+        'https://1b3a4432-5929-44d9-8dc8-996bffbfcf48-00-3up1na66l4ofb.picard.replit.dev:3000/api/getOrderHistory'
+      );
 
       // Sort orders by dateTime in descending order (latest first)
       const sortedOrders = response.data.sort((a, b) => {
@@ -34,24 +36,24 @@ const OrderHistory = () => {
       setOrderHistory(sortedOrders);
       setLoading(false);
     } catch (error) {
-      setError("Error fetching order history. Please try again later.");
+      setError('Error fetching order history. Please try again later.');
       setLoading(false);
-      console.error("Error fetching order history:", error);
+      console.error('Error fetching order history:', error);
     }
   };
 
   const filterOrders = () => {
     switch (filter) {
-      case "today":
+      case 'today':
         filterToday();
         break;
-      case "yesterday":
+      case 'yesterday':
         filterYesterday();
         break;
-      case "lastWeek":
+      case 'lastWeek':
         filterLastWeek();
         break;
-      case "lastMonth":
+      case 'lastMonth':
         filterLastMonth();
         break;
       default:
@@ -61,7 +63,7 @@ const OrderHistory = () => {
 
   const filterToday = () => {
     const today = new Date().toLocaleDateString();
-    const filtered = orderHistory.filter(order => {
+    const filtered = orderHistory.filter((order) => {
       const orderDate = new Date(order.dateTime).toLocaleDateString();
       return orderDate === today;
     });
@@ -72,7 +74,7 @@ const OrderHistory = () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const yesterdayStr = yesterday.toLocaleDateString();
-    const filtered = orderHistory.filter(order => {
+    const filtered = orderHistory.filter((order) => {
       const orderDate = new Date(order.dateTime).toLocaleDateString();
       return orderDate === yesterdayStr;
     });
@@ -81,8 +83,12 @@ const OrderHistory = () => {
 
   const filterLastWeek = () => {
     const today = new Date();
-    const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-    const filtered = orderHistory.filter(order => {
+    const lastWeek = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 7
+    );
+    const filtered = orderHistory.filter((order) => {
       const orderDate = new Date(order.dateTime);
       return orderDate >= lastWeek && orderDate <= today;
     });
@@ -91,8 +97,12 @@ const OrderHistory = () => {
 
   const filterLastMonth = () => {
     const today = new Date();
-    const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-    const filtered = orderHistory.filter(order => {
+    const lastMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() - 1,
+      today.getDate()
+    );
+    const filtered = orderHistory.filter((order) => {
       const orderDate = new Date(order.dateTime);
       return orderDate >= lastMonth && orderDate <= today;
     });
@@ -139,7 +149,7 @@ const OrderHistory = () => {
                       <strong>Order Name:</strong> {order.orderNumber}
                     </p>
                     <p className="order-info">
-                      <strong>Date Time:</strong>{" "}
+                      <strong>Date Time:</strong>{' '}
                       {new Date(order.dateTime).toLocaleString()}
                     </p>
                     <p className="order-info">
