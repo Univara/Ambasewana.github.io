@@ -79,7 +79,7 @@ function Shop() {
     const fetchFoodData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/products/${foodCategory}`
+          `https://1b3a4432-5929-44d9-8dc8-996bffbfcf48-00-3up1na66l4ofb.picard.replit.dev:3000/api/products/${foodCategory}`
         );
         if (!response.ok) {
           throw new Error('Network response was not ok');
