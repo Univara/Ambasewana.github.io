@@ -18,7 +18,7 @@ function Hero() {
     <div className="hero-container" style={containerStyle}>
       <div className="hero-info">
         <h6>Eat Sleep And</h6>
-        <h1 className="hero-heading">Supper delicious Burger in town!</h1>
+        <h1 className="hero-heading">Supper delicious FOOD in town!</h1>
         <p className="hero-discription">
           Food is any substance consumed to provide nutritional support for an
           organism.
